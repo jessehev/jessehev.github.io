@@ -93,17 +93,17 @@
 
 
 
-<meta name="description" content="燕雀安知鸿鹄之志！">
+<meta name="description" content="一、 Drawable动画其实就是Frame动画，他允许你实现像播放幻灯片一样的效果，这种动画其实就是一张张的drawable的叠加，这种动画继承自Drawable，所以AnimationDrawable本质上还是Drawable。所以xml定义的动画一般放在res/drawable/目录下Drawable动画可以使用xml或者java方式实现，但是依然推荐使用xml方式 先附上一段代码示例dra">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android动画(二)之帧动画">
+<meta property="og:title" content="Android动画(二)之Drawable动画">
 <meta property="og:url" content="https://jessehev.github.io/2017/09/13/Android动画-二-之帧动画/index.html">
 <meta property="og:site_name" content="JesseHev的个人专栏">
-<meta property="og:description" content="燕雀安知鸿鹄之志！">
+<meta property="og:description" content="一、 Drawable动画其实就是Frame动画，他允许你实现像播放幻灯片一样的效果，这种动画其实就是一张张的drawable的叠加，这种动画继承自Drawable，所以AnimationDrawable本质上还是Drawable。所以xml定义的动画一般放在res/drawable/目录下Drawable动画可以使用xml或者java方式实现，但是依然推荐使用xml方式 先附上一段代码示例dra">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-13T07:44:38.306Z">
+<meta property="og:updated_time" content="2017-09-13T08:49:49.077Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android动画(二)之帧动画">
-<meta name="twitter:description" content="燕雀安知鸿鹄之志！">
+<meta name="twitter:title" content="Android动画(二)之Drawable动画">
+<meta name="twitter:description" content="一、 Drawable动画其实就是Frame动画，他允许你实现像播放幻灯片一样的效果，这种动画其实就是一张张的drawable的叠加，这种动画继承自Drawable，所以AnimationDrawable本质上还是Drawable。所以xml定义的动画一般放在res/drawable/目录下Drawable动画可以使用xml或者java方式实现，但是依然推荐使用xml方式 先附上一段代码示例dra">
 
 
 
@@ -137,7 +137,7 @@
 
 
 
-  <title>Android动画(二)之帧动画 | JesseHev的个人专栏</title>
+  <title>Android动画(二)之Drawable动画 | JesseHev的个人专栏</title>
   
 
 
@@ -331,7 +331,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Android动画(二)之帧动画</h1>
+          <h1 class="post-title" itemprop="name headline">Android动画(二)之Drawable动画</h1>
         
 
         <div class="post-meta">
@@ -361,7 +361,7 @@
 
           
           
-             <span id="/2017/09/13/Android动画-二-之帧动画/" class="leancloud_visitors" data-flag-title="Android动画(二)之帧动画">
+             <span id="/2017/09/13/Android动画-二-之帧动画/" class="leancloud_visitors" data-flag-title="Android动画(二)之Drawable动画">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -389,7 +389,18 @@
       
 
       
-        
+        <h3 id="一、-Drawable动画其实就是Frame动画，他允许你实现像播放幻灯片一样的效果，这种动画其实就是一张张的drawable的叠加，这种动画继承自Drawable，所以AnimationDrawable本质上还是Drawable。所以xml定义的动画一般放在res-drawable-目录下"><a href="#一、-Drawable动画其实就是Frame动画，他允许你实现像播放幻灯片一样的效果，这种动画其实就是一张张的drawable的叠加，这种动画继承自Drawable，所以AnimationDrawable本质上还是Drawable。所以xml定义的动画一般放在res-drawable-目录下" class="headerlink" title="一、 Drawable动画其实就是Frame动画，他允许你实现像播放幻灯片一样的效果，这种动画其实就是一张张的drawable的叠加，这种动画继承自Drawable，所以AnimationDrawable本质上还是Drawable。所以xml定义的动画一般放在res/drawable/目录下"></a>一、 Drawable动画其实就是Frame动画，他允许你实现像播放幻灯片一样的效果，这种动画其实就是一张张的drawable的叠加，这种动画继承自Drawable，所以AnimationDrawable本质上还是Drawable。所以xml定义的动画一般放在res/drawable/目录下</h3><p>Drawable动画可以使用xml或者java方式实现，但是依然推荐使用xml方式</p>
+<p>先附上一段代码示例drawable_anim.xml<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">&lt;animation-list xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">    android:oneshot=&quot;false&quot;&gt;</div><div class="line">  &lt;item</div><div class="line">      android:drawable=&quot;@mipmap/animation_start_1&quot;</div><div class="line">      android:duration=&quot;200&quot;/&gt;</div><div class="line">  &lt;item</div><div class="line">      android:drawable=&quot;@mipmap/animation_start_2&quot;</div><div class="line">      android:duration=&quot;200&quot;/&gt;</div><div class="line">  &lt;item</div><div class="line">      android:drawable=&quot;@mipmap/animation_start_3&quot;</div><div class="line">      android:duration=&quot;200&quot;/&gt;</div><div class="line">  &lt;item</div><div class="line">      android:drawable=&quot;@mipmap/animation_start_4&quot;</div><div class="line">      android:duration=&quot;200&quot;/&gt;</div><div class="line">  &lt;item</div><div class="line">      android:drawable=&quot;@mipmap/animation_start_5&quot;</div><div class="line">      android:duration=&quot;200&quot;/&gt;</div><div class="line">  &lt;item</div><div class="line">      android:drawable=&quot;@mipmap/animation_start_6&quot;</div><div class="line">      android:duration=&quot;200&quot;/&gt;</div><div class="line">&lt;/animation-list&gt;</div></pre></td></tr></table></figure></p>
+<p>注意drawable_anim.xml 文件位于res/drawable/目录下</p>
+<p><animation-list>必须是根节点，包含一个或者多个<item>元素，其属性有：</item></animation-list></p>
+<ul>
+<li>android：oneshot=true表示只执行一次，false表示循环执行</li>
+<li><item>类似一帧的动画资源<br><item> animation-list的子项，包含属性如下：</item></item></li>
+<li>android:drawable 一个frame的Drawable资源。</li>
+<li>android:duration 一个frame显示多长时间。</li>
+</ul>
+<p>然后在activity中的代码调用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">ImageView show = (ImageView) findViewById(R.id.show);</div><div class="line">   show.setBackgroundResource(R.drawable.drawable_anim);</div><div class="line">   AnimationDrawable animationDrawable = (AnimationDrawable) show.getBackground();</div><div class="line">   animationDrawable.start();</div></pre></td></tr></table></figure></p>
+
       
     </div>
 
@@ -425,7 +436,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/09/13/Android动画-一-之补间动画/" rel="next" title="Android动画（一）之补间动画">
+              <a href="/2017/09/13/Android动画之补间动画/" rel="next" title="Android动画（一）之补间动画">
                 <i class="fa fa-chevron-left"></i> Android动画（一）之补间动画
               </a>
             
@@ -510,8 +521,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.png"
@@ -526,7 +546,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -573,6 +593,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、-Drawable动画其实就是Frame动画，他允许你实现像播放幻灯片一样的效果，这种动画其实就是一张张的drawable的叠加，这种动画继承自Drawable，所以AnimationDrawable本质上还是Drawable。所以xml定义的动画一般放在res-drawable-目录下"><span class="nav-number">1.</span> <span class="nav-text">一、 Drawable动画其实就是Frame动画，他允许你实现像播放幻灯片一样的效果，这种动画其实就是一张张的drawable的叠加，这种动画继承自Drawable，所以AnimationDrawable本质上还是Drawable。所以xml定义的动画一般放在res/drawable/目录下</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
