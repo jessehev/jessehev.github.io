@@ -96,14 +96,14 @@
 <meta name="description" content="Android动画主要分为三种：  View Animation：视图动画也叫tween（补间动画），只能被用来设置view的动画 Drawable Animation： frame动画或逐帧动画，专门用来显示一个个的Drawable，像放幻灯片一样 Property Animation：属性动画，只对Android3.0（api 11）以上生效，这种动画可以给任何Object，这种动画可扩展，可">
 <meta name="keywords" content="Android">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android动画之补间动画">
+<meta property="og:title" content="Android动画（一）之补间动画">
 <meta property="og:url" content="https://jessehev.github.io/2017/09/13/Android动画之补间动画/index.html">
 <meta property="og:site_name" content="JesseHev的个人专栏">
 <meta property="og:description" content="Android动画主要分为三种：  View Animation：视图动画也叫tween（补间动画），只能被用来设置view的动画 Drawable Animation： frame动画或逐帧动画，专门用来显示一个个的Drawable，像放幻灯片一样 Property Animation：属性动画，只对Android3.0（api 11）以上生效，这种动画可以给任何Object，这种动画可扩展，可">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-13T07:31:29.391Z">
+<meta property="og:updated_time" content="2017-09-13T07:40:59.671Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android动画之补间动画">
+<meta name="twitter:title" content="Android动画（一）之补间动画">
 <meta name="twitter:description" content="Android动画主要分为三种：  View Animation：视图动画也叫tween（补间动画），只能被用来设置view的动画 Drawable Animation： frame动画或逐帧动画，专门用来显示一个个的Drawable，像放幻灯片一样 Property Animation：属性动画，只对Android3.0（api 11）以上生效，这种动画可以给任何Object，这种动画可扩展，可">
 
 
@@ -138,7 +138,7 @@
 
 
 
-  <title>Android动画之补间动画 | JesseHev的个人专栏</title>
+  <title>Android动画（一）之补间动画 | JesseHev的个人专栏</title>
   
 
 
@@ -332,7 +332,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Android动画之补间动画</h1>
+          <h1 class="post-title" itemprop="name headline">Android动画（一）之补间动画</h1>
         
 
         <div class="post-meta">
@@ -384,7 +384,7 @@
 
           
           
-             <span id="/2017/09/13/Android动画之补间动画/" class="leancloud_visitors" data-flag-title="Android动画之补间动画">
+             <span id="/2017/09/13/Android动画之补间动画/" class="leancloud_visitors" data-flag-title="Android动画（一）之补间动画">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -696,7 +696,9 @@
 </tr>
 </tbody>
 </table>
-<h3 id="四、至此整个Android的不见动画常用属性和方法介绍完了。"><a href="#四、至此整个Android的不见动画常用属性和方法介绍完了。" class="headerlink" title="四、至此整个Android的不见动画常用属性和方法介绍完了。"></a>四、至此整个Android的不见动画常用属性和方法介绍完了。</h3>
+<h3 id="四、补间动画注意事项"><a href="#四、补间动画注意事项" class="headerlink" title="四、补间动画注意事项"></a>四、补间动画注意事项</h3><p>补间动画执行后并未改变view的真实布局属性值，譬如当我们在activity中有个button在屏幕上方，我们设置平移动画后移动到屏幕下方，然后报纸动画最后执行状态保留在屏幕下方，这时如果点击屏幕下方动画执行后的button是没有任何反应的，而点击原来屏幕上方没有button的地方却响应的是点击button的事件</p>
+<p>至此整个Android的不见动画常用属性和方法介绍完了。</p>
+
       
     </div>
 
@@ -901,7 +903,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、-View-Animation概述"><span class="nav-number">1.</span> <span class="nav-text">一、 View Animation概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、属性和方法说明"><span class="nav-number">2.</span> <span class="nav-text">二、属性和方法说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、-可以看出Animation抽象类是所有补间动画类的基类，接下来我们看看基类提供的一些通用的属性吧。"><span class="nav-number">2.1.</span> <span class="nav-text">1、 可以看出Animation抽象类是所有补间动画类的基类，接下来我们看看基类提供的一些通用的属性吧。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、-接下来分别看看每种补间动画特有的属性和方法说明"><span class="nav-number">2.2.</span> <span class="nav-text">2、 接下来分别看看每种补间动画特有的属性和方法说明</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#a、-Alpha属性详解"><span class="nav-number">2.2.1.</span> <span class="nav-text">a、 Alpha属性详解</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#b、Rotate属性详解"><span class="nav-number">2.3.</span> <span class="nav-text">b、Rotate属性详解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#c、Scale属性详解"><span class="nav-number">2.4.</span> <span class="nav-text">c、Scale属性详解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#d、-translate属性详解"><span class="nav-number">2.5.</span> <span class="nav-text">d、 translate属性详解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#e、-AnimationSet几层自Animation是上面四种动画元素的容器管理类，没有自己特有的属性，他的属性集成自Animation，所以当我们对set标签使用Animation的属性时会对该标签下的所有元素都产生影响"><span class="nav-number">2.6.</span> <span class="nav-text">e、 AnimationSet几层自Animation是上面四种动画元素的容器管理类，没有自己特有的属性，他的属性集成自Animation，所以当我们对set标签使用Animation的属性时会对该标签下的所有元素都产生影响</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、补间动画使用方法及示例代码"><span class="nav-number">3.</span> <span class="nav-text">三、补间动画使用方法及示例代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、至此整个Android的不见动画常用属性和方法介绍完了。"><span class="nav-number">4.</span> <span class="nav-text">四、至此整个Android的不见动画常用属性和方法介绍完了。</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、-View-Animation概述"><span class="nav-number">1.</span> <span class="nav-text">一、 View Animation概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、属性和方法说明"><span class="nav-number">2.</span> <span class="nav-text">二、属性和方法说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、-可以看出Animation抽象类是所有补间动画类的基类，接下来我们看看基类提供的一些通用的属性吧。"><span class="nav-number">2.1.</span> <span class="nav-text">1、 可以看出Animation抽象类是所有补间动画类的基类，接下来我们看看基类提供的一些通用的属性吧。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、-接下来分别看看每种补间动画特有的属性和方法说明"><span class="nav-number">2.2.</span> <span class="nav-text">2、 接下来分别看看每种补间动画特有的属性和方法说明</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#a、-Alpha属性详解"><span class="nav-number">2.2.1.</span> <span class="nav-text">a、 Alpha属性详解</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#b、Rotate属性详解"><span class="nav-number">2.3.</span> <span class="nav-text">b、Rotate属性详解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#c、Scale属性详解"><span class="nav-number">2.4.</span> <span class="nav-text">c、Scale属性详解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#d、-translate属性详解"><span class="nav-number">2.5.</span> <span class="nav-text">d、 translate属性详解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#e、-AnimationSet几层自Animation是上面四种动画元素的容器管理类，没有自己特有的属性，他的属性集成自Animation，所以当我们对set标签使用Animation的属性时会对该标签下的所有元素都产生影响"><span class="nav-number">2.6.</span> <span class="nav-text">e、 AnimationSet几层自Animation是上面四种动画元素的容器管理类，没有自己特有的属性，他的属性集成自Animation，所以当我们对set标签使用Animation的属性时会对该标签下的所有元素都产生影响</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、补间动画使用方法及示例代码"><span class="nav-number">3.</span> <span class="nav-text">三、补间动画使用方法及示例代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、补间动画注意事项"><span class="nav-number">4.</span> <span class="nav-text">四、补间动画注意事项</span></a></li></ol></div>
             
 
           </div>
