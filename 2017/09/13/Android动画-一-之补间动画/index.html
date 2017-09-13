@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Android动画主要分为三种：  View Animation：视图动画也叫tween（补间动画），只能被用来设置view的动画 Drawable Animation： frame动画或逐帧动画，专门用来显示一个个的Drawable，像放幻灯片一样 Property Animation：属性动画，只对Android3.0（api 11）以上生效，这种动画可以给任何Object，这种动画可扩展，可">
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android动画（一）之补间动画">
+<meta property="og:url" content="https://jessehev.github.io/2017/09/13/Android动画-一-之补间动画/index.html">
+<meta property="og:site_name" content="JesseHev的个人专栏">
+<meta property="og:description" content="Android动画主要分为三种：  View Animation：视图动画也叫tween（补间动画），只能被用来设置view的动画 Drawable Animation： frame动画或逐帧动画，专门用来显示一个个的Drawable，像放幻灯片一样 Property Animation：属性动画，只对Android3.0（api 11）以上生效，这种动画可以给任何Object，这种动画可扩展，可">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-13T07:40:59.671Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android动画（一）之补间动画">
+<meta name="twitter:description" content="Android动画主要分为三种：  View Animation：视图动画也叫tween（补间动画），只能被用来设置view的动画 Drawable Animation： frame动画或逐帧动画，专门用来显示一个个的Drawable，像放幻灯片一样 Property Animation：属性动画，只对Android3.0（api 11）以上生效，这种动画可以给任何Object，这种动画可扩展，可">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'WUD38WKBFH',
+      apiKey: '17d8de9668a2df27797ac75d2dd50654',
+      indexName: 'jessehev',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search","hits_empty":"不能搜索到相关结果: ${query}","hits_stats":"${hits} 条相关条目， 使用了 ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://jessehev.github.io/2017/09/13/Android动画-一-之补间动画/"/>
+
+
+
+
+
+  <title>Android动画（一）之补间动画 | JesseHev的个人专栏</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d47f5a4ca1b3d875d6a7dda99a33445d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">JesseHev的个人专栏</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://jessehev.github.io/2017/09/13/Android动画-一-之补间动画/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JesseHev">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JesseHev的个人专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android动画（一）之补间动画</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-13T13:52:23+08:00">
+                2017-09-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/09/13/Android动画-一-之补间动画/" class="leancloud_visitors" data-flag-title="Android动画（一）之补间动画">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Android动画主要分为三种：</p>
+<ul>
+<li>View Animation：视图动画也叫tween（补间动画），只能被用来设置view的动画</li>
+<li>Drawable Animation： frame动画或逐帧动画，专门用来显示一个个的Drawable，像放幻灯片一样</li>
+<li>Property Animation：属性动画，只对Android3.0（api 11）以上生效，这种动画可以给任何Object，这种动画可扩展，可以自定义任何类型和属性</li>
+</ul>
+<p>本篇文章主要记录View Animation的使用方法。</p>
+<h3 id="一、-View-Animation概述"><a href="#一、-View-Animation概述" class="headerlink" title="一、 View Animation概述"></a>一、 View Animation概述</h3><p>视图动画也叫补间动画，该动画可以在一个视图容器内执行一系列的简单变换（位置、大小、平移、旋转），补间动画通过XML或Android代码定义，一般建议用XML文件来定义，因为它更具可读性、可重用性；</p>
+<table>
+<thead>
+<tr>
+<th>java类名</th>
+<th style="text-align:center">xml关键字</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AlphaAnimation</td>
+<td style="text-align:center"><alpa> 放置在res/anim/目录下</alpa></td>
+<td style="text-align:center">透明度渐变效果</td>
+</tr>
+<tr>
+<td>RotateAnimation</td>
+<td style="text-align:center"><ratate> 放置在res/anim/目录下</ratate></td>
+<td style="text-align:center">画面旋转效果</td>
+</tr>
+<tr>
+<td>TraslateAnimation</td>
+<td style="text-align:center"><traslate> 放置在res/anim/目录下</traslate></td>
+<td style="text-align:center">画面位置移动效果</td>
+</tr>
+<tr>
+<td>ScaleAnimation</td>
+<td style="text-align:center"><scale> 放置在res/anim/目录下</scale></td>
+<td style="text-align:center">尺寸伸缩效果</td>
+</tr>
+<tr>
+<td>AnimationSet</td>
+<td style="text-align:center"><set> 放置在res/anim/目录下</set></td>
+<td style="text-align:center">一个包含其他动画元素alpha、ratate、traslate、scale或者其他set元素的容器</td>
+</tr>
+</tbody>
+</table>
+<h3 id="二、属性和方法说明"><a href="#二、属性和方法说明" class="headerlink" title="二、属性和方法说明"></a>二、属性和方法说明</h3><h4 id="1、-可以看出Animation抽象类是所有补间动画类的基类，接下来我们看看基类提供的一些通用的属性吧。"><a href="#1、-可以看出Animation抽象类是所有补间动画类的基类，接下来我们看看基类提供的一些通用的属性吧。" class="headerlink" title="1、 可以看出Animation抽象类是所有补间动画类的基类，接下来我们看看基类提供的一些通用的属性吧。"></a>1、 可以看出Animation抽象类是所有补间动画类的基类，接下来我们看看基类提供的一些通用的属性吧。</h4><table>
+<thead>
+<tr>
+<th>xml属性</th>
+<th style="text-align:center">java方法</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>android:detachWallpaper</td>
+<td style="text-align:center">setDetachWallpaper(boolean)</td>
+<td style="text-align:center">是否在壁纸上运行</td>
+</tr>
+<tr>
+<td>android:duration</td>
+<td style="text-align:center">setDuration（long）</td>
+<td style="text-align:center">动画持续时间</td>
+</tr>
+<tr>
+<td>android:fillAfter</td>
+<td style="text-align:center">setFillAfter（boolean）</td>
+<td style="text-align:center">控制动画结束时是否保持动画最后的状态</td>
+</tr>
+<tr>
+<td>android:fillBefore</td>
+<td style="text-align:center">setFillBefore（boolean）</td>
+<td style="text-align:center">控制动画结束是否还原动画开始前的状态</td>
+</tr>
+<tr>
+<td>android:interpolator</td>
+<td style="text-align:center">setInterpolater（interpolator）</td>
+<td style="text-align:center">设置插值器（指定动画执行速度、譬如线性执行，加速执行等）</td>
+</tr>
+<tr>
+<td>android:repeatCount</td>
+<td style="text-align:center">setRepeatCount（int）</td>
+<td style="text-align:center">重复次数</td>
+</tr>
+<tr>
+<td>android:repeatMode</td>
+<td style="text-align:center">setRepeatMode（int）</td>
+<td style="text-align:center">设置重复类型：reverse倒序回放、restart从头播放</td>
+</tr>
+<tr>
+<td>android:startOffset</td>
+<td style="text-align:center">setOffset（long）</td>
+<td style="text-align:center">延迟多少毫秒开始执行动画，单位为毫秒</td>
+</tr>
+<tr>
+<td>android:zAdjustment</td>
+<td style="text-align:center">setAdjustment(int)</td>
+<td style="text-align:center">表示被设置动画的内容运行时在Z轴上的位置（top/bottom/normal），默认为normal</td>
+</tr>
+</tbody>
+</table>
+<h4 id="2、-接下来分别看看每种补间动画特有的属性和方法说明"><a href="#2、-接下来分别看看每种补间动画特有的属性和方法说明" class="headerlink" title="2、 接下来分别看看每种补间动画特有的属性和方法说明"></a>2、 接下来分别看看每种补间动画特有的属性和方法说明</h4><h5 id="a、-Alpha属性详解"><a href="#a、-Alpha属性详解" class="headerlink" title="a、 Alpha属性详解"></a>a、 Alpha属性详解</h5><p>下面的java方法是构造函数传参数</p>
+<table>
+<thead>
+<tr>
+<th>xml属性</th>
+<th style="text-align:center">java方法</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>android:fromAlpha</td>
+<td style="text-align:center">AlphaAnimation(float fromAlpha,…)</td>
+<td style="text-align:center">动画的开始透明度0.0-1.0，0.0为全透明，1.0为全不透明</td>
+</tr>
+<tr>
+<td>android:toAlpha</td>
+<td style="text-align:center">AlphaAnimation(…,float fromAlpha)</td>
+<td style="text-align:center">动画结束的透明度同上</td>
+</tr>
+</tbody>
+</table>
+<h4 id="b、Rotate属性详解"><a href="#b、Rotate属性详解" class="headerlink" title="b、Rotate属性详解"></a>b、Rotate属性详解</h4><table>
+<thead>
+<tr>
+<th>xml属性</th>
+<th style="text-align:center">java方法</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>android:fromDegrees</td>
+<td style="text-align:center">RatateAnimation(float fromDegrees,…)</td>
+<td style="text-align:center">旋转开始角度，正数代表顺时针旋转，负数代表逆时针旋转</td>
+</tr>
+<tr>
+<td>android:toDegrees</td>
+<td style="text-align:center">RatateAnimation(…,float toDegrees)</td>
+<td style="text-align:center">旋转结束角度同上</td>
+</tr>
+<tr>
+<td>android:pivotX</td>
+<td style="text-align:center">RatateAnimation(…,float pivotX，…)</td>
+<td style="text-align:center">旋转起点x坐标 （数值、百分数、百分数p，譬如50表示以当前view左上角坐标加50dp为起始点、50%表示以当前view左上角坐标加宽高的50%为起始点、50%p表示以当前view左上角坐标加父控件宽高的50%作为起点）</td>
+</tr>
+<tr>
+<td>android:pivotY</td>
+<td style="text-align:center">RatateAnimation(…,float toDegrees)</td>
+<td style="text-align:center">旋转起点y坐标  （同上）</td>
+</tr>
+</tbody>
+</table>
+<h4 id="c、Scale属性详解"><a href="#c、Scale属性详解" class="headerlink" title="c、Scale属性详解"></a>c、Scale属性详解</h4><table>
+<thead>
+<tr>
+<th>xml属性</th>
+<th style="text-align:center">java方法</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>android:fromXScale</td>
+<td style="text-align:center">ScaleAnimation(float fromX,…)</td>
+<td style="text-align:center">初始x轴缩放比例（1.0表示无变化）</td>
+</tr>
+<tr>
+<td>android:toXScale</td>
+<td style="text-align:center">ScaleAnimation(…,float toX,…)</td>
+<td style="text-align:center">结束时x轴的缩放比例</td>
+</tr>
+<tr>
+<td>android:fromYScale</td>
+<td style="text-align:center">ScaleAnimation(…,float fromY,…)</td>
+<td style="text-align:center">初始y轴缩放比例（1.0表示无变化）</td>
+</tr>
+<tr>
+<td>android:toYScale</td>
+<td style="text-align:center">ScaleAnimation(…,float toY,…)</td>
+<td style="text-align:center">结束时y轴的缩放比例</td>
+</tr>
+<tr>
+<td>android:pivotX</td>
+<td style="text-align:center">ScaleAnimation(…,float pivotX,…)</td>
+<td style="text-align:center">同Rotate</td>
+</tr>
+<tr>
+<td>android:pivotY</td>
+<td style="text-align:center">ScaleAnimation(…,float pivotY,…)</td>
+<td style="text-align:center">同Rotate</td>
+</tr>
+</tbody>
+</table>
+<h4 id="d、-translate属性详解"><a href="#d、-translate属性详解" class="headerlink" title="d、 translate属性详解"></a>d、 translate属性详解</h4><table>
+<thead>
+<tr>
+<th>xml属性</th>
+<th style="text-align:center">java方法</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>android:fromXDelta</td>
+<td style="text-align:center">TranslateAnimation(float fromXDelta,…)</td>
+<td style="text-align:center">起始点X轴坐标（数值、百分数、百分数p，譬如50表示以当前View左上角坐标加50px为初始点、50%表示以当前View的左上角加上当前View宽高的50%做为初始点、50%p表示以当前View的左上角加上父控件宽高的50%做为初始点）</td>
+</tr>
+<tr>
+<td>android:toXDelta</td>
+<td style="text-align:center">TranslateAnimation(…,float toX,…)</td>
+<td style="text-align:center">结束时x轴的坐标（同上）</td>
+</tr>
+<tr>
+<td>android:fromYDelta</td>
+<td style="text-align:center">ScaleAnimation(…,float fromY,…)</td>
+<td style="text-align:center">起始点y轴坐标（同上）</td>
+</tr>
+<tr>
+<td>android:toYDelta</td>
+<td style="text-align:center">ScaleAnimation(…,float toY,…)</td>
+<td style="text-align:center">结束点y轴坐标（同上）</td>
+</tr>
+</tbody>
+</table>
+<h4 id="e、-AnimationSet几层自Animation是上面四种动画元素的容器管理类，没有自己特有的属性，他的属性集成自Animation，所以当我们对set标签使用Animation的属性时会对该标签下的所有元素都产生影响"><a href="#e、-AnimationSet几层自Animation是上面四种动画元素的容器管理类，没有自己特有的属性，他的属性集成自Animation，所以当我们对set标签使用Animation的属性时会对该标签下的所有元素都产生影响" class="headerlink" title="e、 AnimationSet几层自Animation是上面四种动画元素的容器管理类，没有自己特有的属性，他的属性集成自Animation，所以当我们对set标签使用Animation的属性时会对该标签下的所有元素都产生影响"></a>e、 AnimationSet几层自Animation是上面四种动画元素的容器管理类，没有自己特有的属性，他的属性集成自Animation，所以当我们对set标签使用Animation的属性时会对该标签下的所有元素都产生影响</h4><h3 id="三、补间动画使用方法及示例代码"><a href="#三、补间动画使用方法及示例代码" class="headerlink" title="三、补间动画使用方法及示例代码"></a>三、补间动画使用方法及示例代码</h3><p>xml的使用方式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;set xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">    android:duration=&quot;2000&quot;&gt;</div><div class="line">  &lt;alpha</div><div class="line">      android:fromAlpha=&quot;0.0&quot;</div><div class="line">      android:toAlpha=&quot;1.0&quot;/&gt;</div><div class="line">  &lt;scale</div><div class="line">      android:fromXScale=&quot;200dp&quot;</div><div class="line">      android:fromYScale=&quot;200dp&quot;</div><div class="line">      android:pivotX=&quot;0&quot;</div><div class="line">      android:pivotY=&quot;0&quot;</div><div class="line">      android:toXScale=&quot;500dp&quot;</div><div class="line">      android:toYScale=&quot;500dp&quot;</div><div class="line">      /&gt;</div><div class="line">  &lt;translate</div><div class="line">      android:fromXDelta=&quot;10%&quot;</div><div class="line">      android:fromYDelta=&quot;10%&quot;</div><div class="line">      android:toXDelta=&quot;300%&quot;</div><div class="line">      android:toYDelta=&quot;300%&quot;</div><div class="line">      /&gt;</div><div class="line">  &lt;rotate</div><div class="line">      android:fromDegrees=&quot;10&quot;</div><div class="line">      android:pivotX=&quot;50%&quot;</div><div class="line">      android:pivotY=&quot;50%&quot;</div><div class="line">      android:toDegrees=&quot;70&quot;</div><div class="line">      /&gt;</div><div class="line">&lt;/set&gt;</div></pre></td></tr></table></figure></p>
+<p>Android代码中调用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Button btn = (Button) findViewById(R.id.wheelView);</div><div class="line">   Animation animator = AnimationUtils.loadAnimation(this, R.anim.out);</div><div class="line">   btn.startAnimation(animator);</div></pre></td></tr></table></figure></p>
+<p>通过AnimationUtils来加载上述的xml动画资源</p>
+<p>android 代码的使用方式：</p>
+<p>这里只示范了AlphaAnimation的使用，其他三种类型的使用也是一样<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Button btn = (Button) findViewById(R.id.wheelView);</div><div class="line">AlphaAnimation alphaAnimation = new AlphaAnimation(0, 1);</div><div class="line">alphaAnimation.setDuration(2000);</div><div class="line">btn.startAnimation(alphaAnimation);</div></pre></td></tr></table></figure></p>
+<p>此外Animation还有一些比较实用的方法</p>
+<table>
+<thead>
+<tr>
+<th>Animation类的方法</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>reset()</td>
+<td style="text-align:center">重置动画</td>
+</tr>
+<tr>
+<td>cancle()</td>
+<td style="text-align:center">取消动画</td>
+</tr>
+<tr>
+<td>start()</td>
+<td style="text-align:center">开始动画</td>
+</tr>
+<tr>
+<td>setAnimationListener(AnimationListener listener))</td>
+<td style="text-align:center">给当前动画设置监听</td>
+</tr>
+<tr>
+<td>hasStarted()</td>
+<td style="text-align:center">判断当前动画是否开始</td>
+</tr>
+<tr>
+<td>hasEnded()</td>
+<td style="text-align:center">判断当前动画是否介绍</td>
+</tr>
+</tbody>
+</table>
+<p>既然补间动画只能给view使用，那我们来看看view中和动画相关的几个常用方法吧</p>
+<table>
+<thead>
+<tr>
+<th>view类常用动画操作方法</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>startAnimation(Animation animation)</td>
+<td style="text-align:center">开始动画</td>
+</tr>
+<tr>
+<td>clearAnimation(Animation animation)</td>
+<td style="text-align:center">取消动画</td>
+</tr>
+</tbody>
+</table>
+<h3 id="四、补间动画注意事项"><a href="#四、补间动画注意事项" class="headerlink" title="四、补间动画注意事项"></a>四、补间动画注意事项</h3><p>补间动画执行后并未改变view的真实布局属性值，譬如当我们在activity中有个button在屏幕上方，我们设置平移动画后移动到屏幕下方，然后报纸动画最后执行状态保留在屏幕下方，这时如果点击屏幕下方动画执行后的button是没有任何反应的，而点击原来屏幕上方没有button的地方却响应的是点击button的事件</p>
+<p>至此整个Android的不见动画常用属性和方法介绍完了。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/13/不用授权的快捷分享/" rel="next" title="不用授权的快捷分享">
+                <i class="fa fa-chevron-left"></i> 不用授权的快捷分享
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/13/Android动画-二-之帧动画/" rel="prev" title="Android动画(二)之帧动画">
+                Android动画(二)之帧动画 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTg4OS82NDU0"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="JesseHev" />
+          <p class="site-author-name" itemprop="name">JesseHev</p>
+           
+              <p class="site-description motion-element" itemprop="description">燕雀安知鸿鹄之志！</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、-View-Animation概述"><span class="nav-number">1.</span> <span class="nav-text">一、 View Animation概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、属性和方法说明"><span class="nav-number">2.</span> <span class="nav-text">二、属性和方法说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、-可以看出Animation抽象类是所有补间动画类的基类，接下来我们看看基类提供的一些通用的属性吧。"><span class="nav-number">2.1.</span> <span class="nav-text">1、 可以看出Animation抽象类是所有补间动画类的基类，接下来我们看看基类提供的一些通用的属性吧。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、-接下来分别看看每种补间动画特有的属性和方法说明"><span class="nav-number">2.2.</span> <span class="nav-text">2、 接下来分别看看每种补间动画特有的属性和方法说明</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#a、-Alpha属性详解"><span class="nav-number">2.2.1.</span> <span class="nav-text">a、 Alpha属性详解</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#b、Rotate属性详解"><span class="nav-number">2.3.</span> <span class="nav-text">b、Rotate属性详解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#c、Scale属性详解"><span class="nav-number">2.4.</span> <span class="nav-text">c、Scale属性详解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#d、-translate属性详解"><span class="nav-number">2.5.</span> <span class="nav-text">d、 translate属性详解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#e、-AnimationSet几层自Animation是上面四种动画元素的容器管理类，没有自己特有的属性，他的属性集成自Animation，所以当我们对set标签使用Animation的属性时会对该标签下的所有元素都产生影响"><span class="nav-number">2.6.</span> <span class="nav-text">e、 AnimationSet几层自Animation是上面四种动画元素的容器管理类，没有自己特有的属性，他的属性集成自Animation，所以当我们对set标签使用Animation的属性时会对该标签下的所有元素都产生影响</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、补间动画使用方法及示例代码"><span class="nav-number">3.</span> <span class="nav-text">三、补间动画使用方法及示例代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、补间动画注意事项"><span class="nav-number">4.</span> <span class="nav-text">四、补间动画注意事项</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">JesseHev</span>
+</div>
+
+
+<!--   <div class="powered-by">
+                    由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+                    </div>
+
+        <div class="theme-info">
+                    主题 -
+                    <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+                    NexT.Mist
+          </a>
+        </div>-->
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.1"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("3Ubi1XKncgtKis3Xfpljuf0n-gzGzoHsz", "lMFj6iIzkYUvE6fCHfrANApG");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
