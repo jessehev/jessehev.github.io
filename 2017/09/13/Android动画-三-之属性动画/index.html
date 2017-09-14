@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Android," />
 
 
 
@@ -93,17 +93,20 @@
 
 
 
-<meta name="description" content="燕雀安知鸿鹄之志！">
+<meta name="description" content="Android3.0以后引入了属性动画，所谓的属性动画其实就是修改控件的属性值而实现的动画，补间动画和drawable动画实现的效果有限，所以功能比它们要强大的多，也要复杂的多我们先来看下属性动画的类关系： 也就是所有的属性动画的基类就是Animator，所以可以看见我们平时使用的属性动画重点就在于ValueAnimator、TimeAnimator、ObjectAnimator、Animator">
+<meta name="keywords" content="Android">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android动画(三)之属性动画">
 <meta property="og:url" content="https://jessehev.github.io/2017/09/13/Android动画-三-之属性动画/index.html">
 <meta property="og:site_name" content="JesseHev的个人专栏">
-<meta property="og:description" content="燕雀安知鸿鹄之志！">
+<meta property="og:description" content="Android3.0以后引入了属性动画，所谓的属性动画其实就是修改控件的属性值而实现的动画，补间动画和drawable动画实现的效果有限，所以功能比它们要强大的多，也要复杂的多我们先来看下属性动画的类关系： 也就是所有的属性动画的基类就是Animator，所以可以看见我们平时使用的属性动画重点就在于ValueAnimator、TimeAnimator、ObjectAnimator、Animator">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-13T07:46:20.435Z">
+<meta property="og:image" content="https://jessehev.github.io/images/animator.jpg">
+<meta property="og:updated_time" content="2017-09-14T08:07:12.201Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android动画(三)之属性动画">
-<meta name="twitter:description" content="燕雀安知鸿鹄之志！">
+<meta name="twitter:description" content="Android3.0以后引入了属性动画，所谓的属性动画其实就是修改控件的属性值而实现的动画，补间动画和drawable动画实现的效果有限，所以功能比它们要强大的多，也要复杂的多我们先来看下属性动画的类关系： 也就是所有的属性动画的基类就是Animator，所以可以看见我们平时使用的属性动画重点就在于ValueAnimator、TimeAnimator、ObjectAnimator、Animator">
+<meta name="twitter:image" content="https://jessehev.github.io/images/animator.jpg">
 
 
 
@@ -354,6 +357,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -389,7 +414,70 @@
       
 
       
-        
+        <h3 id="Android3-0以后引入了属性动画，所谓的属性动画其实就是修改控件的属性值而实现的动画，补间动画和drawable动画实现的效果有限，所以功能比它们要强大的多，也要复杂的多"><a href="#Android3-0以后引入了属性动画，所谓的属性动画其实就是修改控件的属性值而实现的动画，补间动画和drawable动画实现的效果有限，所以功能比它们要强大的多，也要复杂的多" class="headerlink" title="Android3.0以后引入了属性动画，所谓的属性动画其实就是修改控件的属性值而实现的动画，补间动画和drawable动画实现的效果有限，所以功能比它们要强大的多，也要复杂的多"></a>Android3.0以后引入了属性动画，所谓的属性动画其实就是修改控件的属性值而实现的动画，补间动画和drawable动画实现的效果有限，所以功能比它们要强大的多，也要复杂的多</h3><h4 id="我们先来看下属性动画的类关系："><a href="#我们先来看下属性动画的类关系：" class="headerlink" title="我们先来看下属性动画的类关系："></a>我们先来看下属性动画的类关系：</h4><p><img src="/images/animator.jpg" alt="类图"></p>
+<p>也就是所有的属性动画的基类就是Animator，所以可以看见我们平时使用的属性动画重点就在于ValueAnimator、TimeAnimator、ObjectAnimator、AnimatorSet。</p>
+<h4 id="属性动画XML实现方式"><a href="#属性动画XML实现方式" class="headerlink" title="属性动画XML实现方式"></a>属性动画XML实现方式</h4><p>同样属性动画有xml和纯代码两种实现方式，我们先来看xml的实现方式<br>在xml中可直接使用的属性动画节点有ValueAnimator、ObjectAnimator、AnimatorSet，而TimeAnimator不能在xml中作为节点使用，属性动画的xml文件需要放置在/res/animator/目录下，注意不是/res/anim/，/res/anim/是放置补间动画的目录。这需要区分开。</p>
+<p>ValueAnimator 在xml中对应的是animator标签<br>ObjectAnimator在xml中对应的objectAnimator标签<br>AnimatorSet在xml中对应的是set标签<br>实例代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;set xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">    android:ordering=&quot;sequentially&quot;&gt;</div><div class="line"></div><div class="line">  &lt;objectAnimator</div><div class="line">      android:duration=&quot;800&quot;</div><div class="line">      android:propertyName=&quot;alpha&quot;</div><div class="line">      android:repeatCount=&quot;10000000&quot;</div><div class="line">      android:valueFrom=&quot;0.0&quot;</div><div class="line">      android:valueTo=&quot;1.0&quot;</div><div class="line">      android:valueType=&quot;floatType&quot;</div><div class="line">      /&gt;</div><div class="line">  &lt;animator</div><div class="line">      android:duration=&quot;800&quot;</div><div class="line">      android:repeatCount=&quot;10000000&quot;</div><div class="line">      android:valueFrom=&quot;0.0&quot;</div><div class="line">      android:valueTo=&quot;1000.0&quot;</div><div class="line">      android:valueType=&quot;floatType&quot;/&gt;</div><div class="line">&lt;/set&gt;</div></pre></td></tr></table></figure></p>
+<p>下面对各个属性进行分别解释<br>set标签属性解释：</p>
+<table>
+<thead>
+<tr>
+<th>xml属性</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>android：ordering</td>
+<td style="text-align:center">控制动画启动顺序：sequentially动画按照先后顺序启动；together(默认):动画同时启动</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>xml属性</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>android:properName</td>
+<td style="text-align:center">String类型，必须要设置的节点属性，代表要执行动画的属性，譬如可以执行一个控件的“alpha”或者一些其他自定义的属性</td>
+</tr>
+<tr>
+<td>android：valueFrom</td>
+<td style="text-align:center">动画起始点，与valueTo相对，如果没有设置，则系统通过属性的get方法获取，如果是颜色的话由6位16进制的数字表示</td>
+</tr>
+<tr>
+<td>android：valueTo</td>
+<td style="text-align:center">float、int或者color类型，必须要设置，表明动画结束的值，如果是颜色的话由6位16进制的数字表示</td>
+</tr>
+<tr>
+<td>android：duration</td>
+<td style="text-align:center">动画执行的时长，int类型，以毫秒为单位，默认是300毫秒</td>
+</tr>
+<tr>
+<td>android：startOffset</td>
+<td style="text-align:center">动画延迟的时间，从调用start（）方法后开始计算，int类型，毫秒单位</td>
+</tr>
+<tr>
+<td>android:repeatCount</td>
+<td style="text-align:center">动画执行重复次数，int类型，“-1”表示无限循环，“1”表示执行一次也就是总共执行两次，默认为0不重复</td>
+</tr>
+<tr>
+<td>android:repeatMode</td>
+<td style="text-align:center">重复模式，当动画执行完的时候应该如何处理，该指必须是证书或者-1，“reverse”会使动画向相反方向执行，可实现类似钟摆的效果，“repeat”会使动画每次都从头开始循环</td>
+</tr>
+<tr>
+<td>android:valueType</td>
+<td style="text-align:center">有intType、floatType两种，分别说明动画值是int和float类型，如果是颜色，就不需要指定了，系统会自动处理颜色值</td>
+</tr>
+</tbody>
+</table>
+<p>objectAnimator的属性同上</p>
+<h4 id="在activity中调用"><a href="#在activity中调用" class="headerlink" title="在activity中调用"></a>在activity中调用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">AnimatorSet set = AnimatorSet set = (AnimatorSet) AnimatorInflater.loadAnimator(myContext,</div><div class="line">    R.animtor.property_animator);</div><div class="line">set.setTarget(myObject);</div><div class="line">set.start();</div></pre></td></tr></table></figure>
+<h3 id="纯代码方式去实现属性动画"><a href="#纯代码方式去实现属性动画" class="headerlink" title="纯代码方式去实现属性动画"></a>纯代码方式去实现属性动画</h3>
       
     </div>
 
@@ -415,6 +503,12 @@
     </div>
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+        </div>
       
 
       
@@ -506,8 +600,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.png"
@@ -569,6 +672,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Android3-0以后引入了属性动画，所谓的属性动画其实就是修改控件的属性值而实现的动画，补间动画和drawable动画实现的效果有限，所以功能比它们要强大的多，也要复杂的多"><span class="nav-number">1.</span> <span class="nav-text">Android3.0以后引入了属性动画，所谓的属性动画其实就是修改控件的属性值而实现的动画，补间动画和drawable动画实现的效果有限，所以功能比它们要强大的多，也要复杂的多</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#我们先来看下属性动画的类关系："><span class="nav-number">1.1.</span> <span class="nav-text">我们先来看下属性动画的类关系：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#属性动画XML实现方式"><span class="nav-number">1.2.</span> <span class="nav-text">属性动画XML实现方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在activity中调用"><span class="nav-number">1.3.</span> <span class="nav-text">在activity中调用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#纯代码方式去实现属性动画"><span class="nav-number">2.</span> <span class="nav-text">纯代码方式去实现属性动画</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

@@ -357,6 +357,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -394,8 +416,10 @@
       
         
           
-          
-          
+          Android3.0以后引入了属性动画，所谓的属性动画其实就是修改控件的属性值而实现的动画，补间动画和drawable动画实现的效果有限，所以功能比它们要强大的多，也要复杂的多我们先来看下属性动画的类关系：
+也就是所有的属性动画的基类就是Animator，所以可以看见我们平时使用的属性动画重点就在于ValueAnimator、TimeAnimator、ObjectAnimator、AnimatorSet。
+属性动画XML实现方式同样属性动画有xml和纯代码两种实现方式，我们先来看xml的实现方式在xml中可直接使用的属性动画节点有ValueAnimator、ObjectAnimator、Ani
+          ...
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/09/13/Android动画-三-之属性动画/#more" rel="contents">
@@ -545,170 +569,12 @@
       
         
           
-          一、 Drawable动画其实就是Frame动画，他允许你实现像播放幻灯片一样的效果，这种动画其实就是一张张的drawable的叠加，这种动画继承自Drawable，所以AnimationDrawable本质上还是Drawable。所以xml定义的动画一般放在res/drawable/目录下二、Drawable动画的xml实现方式Drawable动画可以使用xml或者java方式实现，但是依然推荐使用xml方式
-先附上一段代码示例drawable_anim.xml123456789101112131415161718192021&lt;animation-list xmlns:android=
+          Drawable动画其实就是Frame动画，他允许你实现像播放幻灯片一样的效果，这种动画其实就是一张张的drawable的叠加，这种动画继承自Drawable，所以AnimationDrawable本质上还是Drawable。所以xml定义的动画一般放在res/drawable/目录下Drawable动画的xml实现方式Drawable动画可以使用xml或者java方式实现，但是依然推荐使用xml方式
+先附上一段代码示例drawable_anim.xml123456789101112131415161718192021&lt;animation-list xmlns:android=&quot
           ...
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/09/13/Android动画-二-之帧动画/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://jessehev.github.io/2017/09/13/Android动画-一-之补间动画/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="JesseHev">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="JesseHev的个人专栏">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/13/Android动画-一-之补间动画/" itemprop="url">Android动画（一）之补间动画</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-13T13:52:23+08:00">
-                2017-09-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2017/09/13/Android动画-一-之补间动画/" class="leancloud_visitors" data-flag-title="Android动画（一）之补间动画">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          Android动画主要分为三种：
-
-View Animation：视图动画也叫tween（补间动画），只能被用来设置view的动画
-Drawable Animation： frame动画或逐帧动画，专门用来显示一个个的Drawable，像放幻灯片一样
-Property Animation：属性动画，只对Android3.0（api 11）以上生效，这种动画可以给任何Object，这种动画可扩展，可以自定义任何类型和属性
-
-本篇文章主要记录View Animation的使用方法。
-一、 View Animation概述视图动画也叫补间动画，该动画可以在一个视图容器内执行一系列的简单变换（位置、大
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/09/13/Android动画-一-之补间动画/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -867,6 +733,164 @@ Property Animation：属性动画，只对Android3.0（api 11）以上生效，�
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/09/13/Android动画之补间动画/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://jessehev.github.io/2017/09/13/Android动画-一-之补间动画/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JesseHev">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JesseHev的个人专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/13/Android动画-一-之补间动画/" itemprop="url">Android动画（一）之补间动画</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-13T13:52:23+08:00">
+                2017-09-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/09/13/Android动画-一-之补间动画/" class="leancloud_visitors" data-flag-title="Android动画（一）之补间动画">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          Android动画主要分为三种：
+
+View Animation：视图动画也叫tween（补间动画），只能被用来设置view的动画
+Drawable Animation： frame动画或逐帧动画，专门用来显示一个个的Drawable，像放幻灯片一样
+Property Animation：属性动画，只对Android3.0（api 11）以上生效，这种动画可以给任何Object，这种动画可扩展，可以自定义任何类型和属性
+
+本篇文章主要记录View Animation的使用方法。
+一、 View Animation概述视图动画也叫补间动画，该动画可以在一个视图容器内执行一系列的简单变换（位置、大
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/09/13/Android动画-一-之补间动画/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
