@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Android 动画," />
+  <meta name="keywords" content="Android,动画," />
 
 
 
@@ -94,7 +94,7 @@
 
 
 <meta name="description" content="本文记录的是用Android属性动画结合贝兹曲线来实现类似抛物线的动画效果下图为效果图 在我们写码代码之前先来分析一下实现这样的一个效果需要那些步骤，其实完成一个功能，我认为最大部分的时间应该是在分析、拆解功能，最后的代码只是水到渠成的事情，不要一上来就撸代码，结果头脑是懵的，这样效率非常低。 这样的一个效果可以拆分为两部分水平和垂直部分： 左上角的红球在水平方向作匀速运动，垂直方向的加速运动，如">
-<meta name="keywords" content="Android 动画">
+<meta name="keywords" content="Android,动画">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android贝兹曲线之抛物线动画">
 <meta property="og:url" content="https://jessehev.github.io/2017/09/15/Android贝兹曲线之抛物线动画/index.html">
@@ -102,7 +102,7 @@
 <meta property="og:description" content="本文记录的是用Android属性动画结合贝兹曲线来实现类似抛物线的动画效果下图为效果图 在我们写码代码之前先来分析一下实现这样的一个效果需要那些步骤，其实完成一个功能，我认为最大部分的时间应该是在分析、拆解功能，最后的代码只是水到渠成的事情，不要一上来就撸代码，结果头脑是懵的，这样效率非常低。 这样的一个效果可以拆分为两部分水平和垂直部分： 左上角的红球在水平方向作匀速运动，垂直方向的加速运动，如">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://jessehev.github.io/images/beizi.png">
-<meta property="og:updated_time" content="2017-09-18T02:58:25.424Z">
+<meta property="og:updated_time" content="2017-09-18T03:04:20.038Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android贝兹曲线之抛物线动画">
 <meta name="twitter:description" content="本文记录的是用Android属性动画结合贝兹曲线来实现类似抛物线的动画效果下图为效果图 在我们写码代码之前先来分析一下实现这样的一个效果需要那些步骤，其实完成一个功能，我认为最大部分的时间应该是在分析、拆解功能，最后的代码只是水到渠成的事情，不要一上来就撸代码，结果头脑是懵的，这样效率非常低。 这样的一个效果可以拆分为两部分水平和垂直部分： 左上角的红球在水平方向作匀速运动，垂直方向的加速运动，如">
@@ -430,7 +430,7 @@
 <ol>
 <li>确定动画的起点和终点坐标</li>
 <li>确定控制点的坐标</li>
-<li>用二阶贝兹曲线公式确定控制点的变化规律</li>
+<li>用二阶贝兹曲线公式自定义TypeEvaluator以确定控制点的变化规律</li>
 <li>在一次动画完成时，移除移动到终点的红球</li>
 </ol>
 <p>本文主要是记录一次问题解决的方法。</p>
@@ -463,7 +463,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Android-动画/" rel="tag"># Android 动画</a>
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/动画/" rel="tag"># 动画</a>
           
         </div>
       
@@ -595,7 +597,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
