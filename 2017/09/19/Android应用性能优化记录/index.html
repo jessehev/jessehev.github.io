@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android,性能优化," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="虚拟机在执行GC垃圾回收操作时所有线程（包括UI线程）都需要暂停，当GC垃圾回收完成之后所有线程才能够继续执行（这个细节下面小节会有详细介绍）。也就是说当在16ms内进行渲染等操作时如果刚好遇上大量GC操作则会导致渲染时间明显不足，也就从而导致了丢帧卡顿问题 android的性能优化主要从下面4个方面入手 UI性能问题优化UI卡顿常见原因 在UI线程中做轻微耗时操作，导致UI线程卡顿 布局太过复杂">
+<meta name="keywords" content="Android,性能优化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android应用性能优化记录">
+<meta property="og:url" content="https://jessehev.github.io/2017/09/19/Android应用性能优化记录/index.html">
+<meta property="og:site_name" content="JesseHev的个人专栏">
+<meta property="og:description" content="虚拟机在执行GC垃圾回收操作时所有线程（包括UI线程）都需要暂停，当GC垃圾回收完成之后所有线程才能够继续执行（这个细节下面小节会有详细介绍）。也就是说当在16ms内进行渲染等操作时如果刚好遇上大量GC操作则会导致渲染时间明显不足，也就从而导致了丢帧卡顿问题 android的性能优化主要从下面4个方面入手 UI性能问题优化UI卡顿常见原因 在UI线程中做轻微耗时操作，导致UI线程卡顿 布局太过复杂">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://jessehev.github.io/2017/09/19/images/nature_1.png">
+<meta property="og:updated_time" content="2017-09-20T08:53:58.687Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android应用性能优化记录">
+<meta name="twitter:description" content="虚拟机在执行GC垃圾回收操作时所有线程（包括UI线程）都需要暂停，当GC垃圾回收完成之后所有线程才能够继续执行（这个细节下面小节会有详细介绍）。也就是说当在16ms内进行渲染等操作时如果刚好遇上大量GC操作则会导致渲染时间明显不足，也就从而导致了丢帧卡顿问题 android的性能优化主要从下面4个方面入手 UI性能问题优化UI卡顿常见原因 在UI线程中做轻微耗时操作，导致UI线程卡顿 布局太过复杂">
+<meta name="twitter:image" content="https://jessehev.github.io/2017/09/19/images/nature_1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'WUD38WKBFH',
+      apiKey: '17d8de9668a2df27797ac75d2dd50654',
+      indexName: 'jessehev',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search","hits_empty":"不能搜索到相关结果: ${query}","hits_stats":"${hits} 条相关条目， 使用了 ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://jessehev.github.io/2017/09/19/Android应用性能优化记录/"/>
+
+
+
+
+
+  <title>Android应用性能优化记录 | JesseHev的个人专栏</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d47f5a4ca1b3d875d6a7dda99a33445d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">JesseHev的个人专栏</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://jessehev.github.io/2017/09/19/Android应用性能优化记录/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JesseHev">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JesseHev的个人专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android应用性能优化记录</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-19T17:39:10+08:00">
+                2017-09-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/09/19/Android应用性能优化记录/" class="leancloud_visitors" data-flag-title="Android应用性能优化记录">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>虚拟机在执行GC垃圾回收操作时所有线程（包括UI线程）都需要暂停，当GC垃圾回收完成之后所有线程才能够继续执行（这个细节下面小节会有详细介绍）。也就是说当在16ms内进行渲染等操作时如果刚好遇上大量GC操作则会导致渲染时间明显不足，也就从而导致了丢帧卡顿问题</p>
+<p>android的性能优化主要从下面4个方面入手</p>
+<h3 id="UI性能问题优化"><a href="#UI性能问题优化" class="headerlink" title="UI性能问题优化"></a>UI性能问题优化</h3><h6 id="UI卡顿常见原因"><a href="#UI卡顿常见原因" class="headerlink" title="UI卡顿常见原因"></a>UI卡顿常见原因</h6><ol>
+<li>在UI线程中做轻微耗时操作，导致UI线程卡顿</li>
+<li>布局太过复杂，layout嵌套太多，无法在16ms内完成渲染</li>
+<li>同一时间执行动画次数过多，导致CPU、GPU负载过重</li>
+<li>View过度绘制，使某些像素在同一时间被多次绘制，导致CPU、GPU负载过重</li>
+<li>View频繁出发onMeasure、onLayout，致使累计耗时过长及整个View频繁的重新绘制</li>
+<li>内存频繁出发GC过多（同一帧中频繁创建内存）导致暂时阻塞渲染操作</li>
+<li>冗余资源导致加载和执行过慢</li>
+</ol>
+<h4 id="Layout层级分析"><a href="#Layout层级分析" class="headerlink" title="Layout层级分析"></a>Layout层级分析</h4><p>UI层级分析工具hierarchy view 分析layout视图情况，以及调试自定义view时及时观察measure layout draw的运行时间</p>
+<p>GPU的过度绘制，在开发中选项中开启过渡绘制显示，可根据app界面的颜色显示查看是否过度绘制并优化</p>
+<table>
+<thead>
+<tr>
+<th>颜色</th>
+<th style="text-align:center">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>无色</td>
+<td style="text-align:center">WebView等的渲染区域</td>
+</tr>
+<tr>
+<td>蓝色</td>
+<td style="text-align:center">1x过度绘制</td>
+</tr>
+<tr>
+<td>绿色</td>
+<td style="text-align:center">2x过度绘制</td>
+</tr>
+<tr>
+<td>淡红色</td>
+<td style="text-align:center">3x过度绘制</td>
+</tr>
+<tr>
+<td>红色</td>
+<td style="text-align:center">4x(+)过度绘制</td>
+</tr>
+</tbody>
+</table>
+<p>譬如：优化布局层次机构，减少没必要的背景。暂时不显示的View 设置为gone而不是invisible</p>
+<p><img src="../images/nature_1.png" alt=""></p>
+<p>每个柱状图偏上都有一根代表16ms基准的绿色横线，每一条竖着的柱状线都包含三部分（蓝色代表测量绘制Display List的时间，红色代表OpenGL渲染Display List所需要的时间，黄色代表CPU等待GPU处理的时间），只要我们每一帧的总时间低于基准线就不会发生UI卡顿问题（个别超出基准线其实也不算啥问题的）。</p>
+<p>这个工具只能看出是否丢帧，却不能分析丢帧原因，所以需要配合traceview和systrace来进行原因追踪</p>
+<h4 id="Lint进行资源及冗余UI布局等优化"><a href="#Lint进行资源及冗余UI布局等优化" class="headerlink" title="Lint进行资源及冗余UI布局等优化"></a>Lint进行资源及冗余UI布局等优化</h4><h4 id="gc导致的性能分析（memory检测、gc日子输出、Allocation-Tracker工具进行配合定位分析问题）："><a href="#gc导致的性能分析（memory检测、gc日子输出、Allocation-Tracker工具进行配合定位分析问题）：" class="headerlink" title="gc导致的性能分析（memory检测、gc日子输出、Allocation Tracker工具进行配合定位分析问题）："></a>gc导致的性能分析（memory检测、gc日子输出、Allocation Tracker工具进行配合定位分析问题）：</h4><p>gc频繁执行的原因：</p>
+<ol>
+<li>短时间内大量频繁的对象创建和释放操作（内存抖动现象）</li>
+<li>短时间内已经存在大量的内存占用介于阈值边缘，当创建对象导致超越阈值时候触发gc操作</li>
+</ol>
+<p>触发gc的主要原因：</p>
+<ol>
+<li>内存分配失败</li>
+<li>但分配的对象大小超过限定阈值（根据系统而定具体值）</li>
+<li>对gc的显式调用</li>
+<li>外部内存分配失败</li>
+</ol>
+<h4 id="从内存角度优化其中就是要避免gc的频繁执行造成UI视觉的卡顿："><a href="#从内存角度优化其中就是要避免gc的频繁执行造成UI视觉的卡顿：" class="headerlink" title="从内存角度优化其中就是要避免gc的频繁执行造成UI视觉的卡顿："></a>从内存角度优化其中就是要避免gc的频繁执行造成UI视觉的卡顿：</h4><ol>
+<li>检查代码是否有频繁触发的代码中存在大量内存分配</li>
+<li>尽量避免在对此for循环中频繁分配内存</li>
+<li>避免在自定义view中的ondraw方法中进行复杂的朝族及对象创建，比如paint的实例化不要写在ondraw中</li>
+<li>对于并发下载应该避免多次创建线程对象，而应该用线程池的方式处理</li>
+</ol>
+<p>分析完原因之后可配合Allocation Tracker工具进行gc导致的性能问题定位分析</p>
+<h4 id="Android-studio-Monitor面板的memory的tracview记录了应用程序每个函数执行的时间，以此来进行性能分析"><a href="#Android-studio-Monitor面板的memory的tracview记录了应用程序每个函数执行的时间，以此来进行性能分析" class="headerlink" title="Android studio Monitor面板的memory的tracview记录了应用程序每个函数执行的时间，以此来进行性能分析"></a>Android studio Monitor面板的memory的tracview记录了应用程序每个函数执行的时间，以此来进行性能分析</h4><h4 id="ANR导致UI卡顿："><a href="#ANR导致UI卡顿：" class="headerlink" title="ANR导致UI卡顿："></a>ANR导致UI卡顿：</h4><p>常见ANR的原因</p>
+<ol>
+<li>按键触摸事件派发超时，一般阈值为5s</li>
+<li>广播阻塞ANR，一般阈值为10s</li>
+<li>服务超时ANR，一般阈值为20s<br>发生ANR时可在/data/anr/traces.txt文件中查看分析原因</li>
+</ol>
+<h3 id="Memory内存性能优化"><a href="#Memory内存性能优化" class="headerlink" title="Memory内存性能优化"></a>Memory内存性能优化</h3><h4 id="内存泄露性能分析"><a href="#内存泄露性能分析" class="headerlink" title="内存泄露性能分析"></a>内存泄露性能分析</h4><p>内存泄露产生原因：<br>在某些对象的生命周期执行完的时候，该对象本来应该被垃圾回收，但此时这个对象还被别的对象持有引用，那么就会导致内存泄露</p>
+<p>代码举例分析：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">public final class MainActivity extends Activity &#123;</div><div class="line">    private DbManager mDbManager;</div><div class="line">    @Override</div><div class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line"></div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line"></div><div class="line">        //DbManager是一个单例模式类，这样就持有了MainActivity引用，导致泄露</div><div class="line">        mDbManager = DbManager.getInstance(this);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>上面例子中，在当前Acvitivy执行完onDestroy()后，这个Activity的应用被单例模式的DbManager对象持有，就无法得到垃圾回收，也就造成了内存泄露</p>
+<p>内存泄露检测方式或工具：</p>
+<table>
+<thead>
+<tr>
+<th>查看方式</th>
+<th style="text-align:center">场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AS的Memory窗口</td>
+<td style="text-align:center">平时用来直观了解自己应用的全局内存情况，大的泄露才能有感知。</td>
+</tr>
+<tr>
+<td>DDMS-Heap内存监测工具</td>
+<td style="text-align:center">同上，大的泄露才能有感知。</td>
+</tr>
+<tr>
+<td>dumpsys meminfo命令</td>
+<td style="text-align:center">常用方式，可以很直观的察觉一些泄露，但不全面且常规足够用。</td>
+</tr>
+<tr>
+<td>leakcanary神器</td>
+<td style="text-align:center">比较强大，可以感知泄露且定位泄露；实质是MAT原理，只是更加自动化了，当现有代码量已经庞大成型，且无法很快察觉掌控全局代码时极力推荐；或者是偶现泄露的情况下极力推荐。</td>
+</tr>
+</tbody>
+</table>
+<p>内存泄露导致的常见的问题：</p>
+<ol>
+<li>应用卡顿，响应速度满（内存占用高，JVM会频繁触发GC）</li>
+<li>后台进程被转化为空进程，从而被系统kill（内存超过阈值）</li>
+<li>崩溃（超过内存阈值）</li>
+</ol>
+<p>开发中应该如何规避内存泄露的几点建议：</p>
+<ol>
+<li>不要对一个activity context保持长生命周期的引用</li>
+<li>非静态内部类的静态实例容易造成内存泄露，尽量使用静态类和弱应用来处理</li>
+<li>对象的注册和反注册没有成对出现，比如广播接收器、后台服务、观察者的注册和反注册</li>
+<li>创建与关闭没有成对出现，比如Cursor资源必须手动关闭，WebView必须手动销毁，流等对象用完后必须手动关闭</li>
+<li>不要在执行频率很高的方法或循环中创建对象，可创建对象容易做缓存处理</li>
+</ol>
+<h4 id="内存溢出OOM性能分析"><a href="#内存溢出OOM性能分析" class="headerlink" title="内存溢出OOM性能分析"></a>内存溢出OOM性能分析</h4><p>内存泄露和内存溢出的关系是，但内存泄露超过一定阈值后就会造成内存溢出</p>
+<p>造成内存溢出的原因：</p>
+<ol>
+<li>内存泄露，长时间累计无法释放导致oom</li>
+<li>程序短时间内大量消耗内存（比如加载未处理的超大高清巨图）导致超过阈值，致使oom</li>
+</ol>
+<p>从上面不难得出导致内存溢出的直接原因就是内存占用超过阈值</p>
+<p>开发中规避内存溢出的建议：</p>
+<ol>
+<li>不要直接加载高清大图，可用BitmapFactory.option设置图片属性，或者第三方图片框架加载，fresco glide</li>
+<li>有些地方避免使用强引用，替换为弱应用</li>
+<li>对需要批量处理的数据进行缓存处理，或者事务处理（数据多次加载，一次性提交，提升系统性能）</li>
+<li>尽可能复用资源，比如字符串、颜色、尺寸、动画、布局等资源复用</li>
+<li>尽量使用线程池代替多线程操作，节约内存和CPU占用</li>
+<li>多用try catch进行异常处理，避免不必要的闪退</li>
+<li>尽量优化代码逻辑，减少冗余，编译打包时进行优化对齐处理</li>
+</ol>
+<h3 id="API使用、代码编写性能分析"><a href="#API使用、代码编写性能分析" class="headerlink" title="API使用、代码编写性能分析"></a>API使用、代码编写性能分析</h3><h4 id="字符串的拼接-、StringBuffer（线程安全）、StringBuilder的选择"><a href="#字符串的拼接-、StringBuffer（线程安全）、StringBuilder的选择" class="headerlink" title="字符串的拼接 +、StringBuffer（线程安全）、StringBuilder的选择"></a>字符串的拼接 +、StringBuffer（线程安全）、StringBuilder的选择</h4><h3 id="HashMap、ArrayMap、SparseMap的使用选择"><a href="#HashMap、ArrayMap、SparseMap的使用选择" class="headerlink" title="HashMap、ArrayMap、SparseMap的使用选择"></a>HashMap、ArrayMap、SparseMap的使用选择</h3><p>HashMap 内部使用默认容量的数组存储数据，每个元素存放一个链表头节点，其内部结构为链表结构，因为元素查询采用遍历法，所以在查询元素时效率低，成本高</p>
+<p>SparseMap 内部避免了对key进行自动装箱，采用两个数组来存储数据，一个存储key，一个存储value，内部数据采用压缩方式，从而节约内存空间，元素查询采用二分法，所以性能比hashmap高，比hashmap省内存</p>
+<p>ArrayMap内部使用两个数组进行数据存储，一个记录Key的Hash值，一个记录Value值，它和SparseArray类似，也会在查找时对Key采用二分法。</p>
+<p>当数据量不大（千位级内）且Key为int类型时使用SparseArray替换HashMap效率高；当数据量不大（千位级内）且数据类型为Map类型时使用ArrayMap替换HashMap效率高；其他情况下HashMap效率相对高于二者</p>
+<h4 id="使用ContentProviderOperation避免多次调用ContentProvider"><a href="#使用ContentProviderOperation避免多次调用ContentProvider" class="headerlink" title="使用ContentProviderOperation避免多次调用ContentProvider"></a>使用ContentProviderOperation避免多次调用ContentProvider</h4><ol>
+<li><p>所有的操作都在一个事务中执行，可以保证数据的完整性。</p>
+</li>
+<li><p>批量操作在一个事务中执行，所以只用打开、关闭一个事务。</p>
+</li>
+<li><p>减轻应用程序与ContentProvider间的多次频繁交互，提升性能</p>
+</li>
+</ol>
+<h4 id="其他代码编写性能优化的建议"><a href="#其他代码编写性能优化的建议" class="headerlink" title="其他代码编写性能优化的建议"></a>其他代码编写性能优化的建议</h4><ol>
+<li>避免使用枚举，编译后不但占空间，而且加载也费时</li>
+<li>Handler发送消息时尽量用obtain去获取已经存在的message进行复用，而不是每次使用都用创建新的message对象，减轻内存压力</li>
+<li>尽量不要用getXXX、setXXX对机制的内部成员进行操作，直接使用，提高代码执行效率，也可避免65536问题</li>
+<li>不要一味的为了设计模式去抽象代码，代码抽象系数和代码执行时间成正比</li>
+</ol>
+<h3 id="Android应用电池耗电性能分析"><a href="#Android应用电池耗电性能分析" class="headerlink" title="Android应用电池耗电性能分析"></a>Android应用电池耗电性能分析</h3><h4 id="常见耗电量大的原因："><a href="#常见耗电量大的原因：" class="headerlink" title="常见耗电量大的原因："></a>常见耗电量大的原因：</h4><ol>
+<li>网络数据交互</li>
+<li>GPS定位</li>
+<li>大量内存性能问题</li>
+<li>冗余的后台线程和服务</li>
+</ol>
+<h4 id="针对上面的原因提出相应的对策："><a href="#针对上面的原因提出相应的对策：" class="headerlink" title="针对上面的原因提出相应的对策："></a>针对上面的原因提出相应的对策：</h4><ol>
+<li>网络操作之前进行网络状态判断</li>
+<li>数据传输中使用高效的数据交互方式，比如json</li>
+<li>对定位要求不高的的场景使用网络定位，而不是GPS定位</li>
+<li>减少网络请求次数和请求时间间隔</li>
+</ol>
+<p>披着微商外套的传销<br>传销？微商？傻傻分不清楚，在互联网高速发展的今天，传统的商品销售搭上互联网的顺风车，使得销售数据实现了华丽的转身，而且相对淘宝店的低门槛，微商更是得到创业一代年轻人的青睐，这本就是喜大普奔的事情，那传销和微商八竿子打不着的两件事怎么产生有着剪不断理还乱的关系呢?在政府重拳出击，大力打击传销，捣毁传销窝点，拘捕传销头目，缴获传销非法资金；加大对人民群众的传销知识普及，各大媒体不断曝光传销事件，提高群众对传销的警惕性，人人反传销的大背景下，传销犹如过街老鼠，无处遁形，互联网时代的到来一方面加快的国家经济的发展，另一方面也给传销有可乘之机，于是传销披上互联网的外衣，招摇过市。那我们生活中又该如何去区分传销和微商呢？</p>
+<p>从商品流通方式</p>
+<p>微信朋友圈做生意的人本无可非议，而且是大众创业  事情，</p>
+<p>然而微商繁华的背后总有传销的鬼影，，</p>
+<p>传销利用披上伪善的外衣悄悄的进村打枪的不要，</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/性能优化/" rel="tag"># 性能优化</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/15/Android贝兹曲线之抛物线动画/" rel="next" title="Android贝兹曲线之抛物线动画">
+                <i class="fa fa-chevron-left"></i> Android贝兹曲线之抛物线动画
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTg4OS82NDU0"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="JesseHev" />
+          <p class="site-author-name" itemprop="name">JesseHev</p>
+           
+              <p class="site-description motion-element" itemprop="description">燕雀安知鸿鹄之志！</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#UI性能问题优化"><span class="nav-number">1.</span> <span class="nav-text">UI性能问题优化</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#UI卡顿常见原因"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">UI卡顿常见原因</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Layout层级分析"><span class="nav-number">1.1.</span> <span class="nav-text">Layout层级分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Lint进行资源及冗余UI布局等优化"><span class="nav-number">1.2.</span> <span class="nav-text">Lint进行资源及冗余UI布局等优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#gc导致的性能分析（memory检测、gc日子输出、Allocation-Tracker工具进行配合定位分析问题）："><span class="nav-number">1.3.</span> <span class="nav-text">gc导致的性能分析（memory检测、gc日子输出、Allocation Tracker工具进行配合定位分析问题）：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#从内存角度优化其中就是要避免gc的频繁执行造成UI视觉的卡顿："><span class="nav-number">1.4.</span> <span class="nav-text">从内存角度优化其中就是要避免gc的频繁执行造成UI视觉的卡顿：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Android-studio-Monitor面板的memory的tracview记录了应用程序每个函数执行的时间，以此来进行性能分析"><span class="nav-number">1.5.</span> <span class="nav-text">Android studio Monitor面板的memory的tracview记录了应用程序每个函数执行的时间，以此来进行性能分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ANR导致UI卡顿："><span class="nav-number">1.6.</span> <span class="nav-text">ANR导致UI卡顿：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Memory内存性能优化"><span class="nav-number">2.</span> <span class="nav-text">Memory内存性能优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#内存泄露性能分析"><span class="nav-number">2.1.</span> <span class="nav-text">内存泄露性能分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内存溢出OOM性能分析"><span class="nav-number">2.2.</span> <span class="nav-text">内存溢出OOM性能分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#API使用、代码编写性能分析"><span class="nav-number">3.</span> <span class="nav-text">API使用、代码编写性能分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#字符串的拼接-、StringBuffer（线程安全）、StringBuilder的选择"><span class="nav-number">3.1.</span> <span class="nav-text">字符串的拼接 +、StringBuffer（线程安全）、StringBuilder的选择</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HashMap、ArrayMap、SparseMap的使用选择"><span class="nav-number">4.</span> <span class="nav-text">HashMap、ArrayMap、SparseMap的使用选择</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用ContentProviderOperation避免多次调用ContentProvider"><span class="nav-number">4.1.</span> <span class="nav-text">使用ContentProviderOperation避免多次调用ContentProvider</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他代码编写性能优化的建议"><span class="nav-number">4.2.</span> <span class="nav-text">其他代码编写性能优化的建议</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android应用电池耗电性能分析"><span class="nav-number">5.</span> <span class="nav-text">Android应用电池耗电性能分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#常见耗电量大的原因："><span class="nav-number">5.1.</span> <span class="nav-text">常见耗电量大的原因：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#针对上面的原因提出相应的对策："><span class="nav-number">5.2.</span> <span class="nav-text">针对上面的原因提出相应的对策：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">JesseHev</span>
+</div>
+
+
+<!--   <div class="powered-by">
+                    由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+                    </div>
+
+        <div class="theme-info">
+                    主题 -
+                    <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+                    NexT.Mist
+          </a>
+        </div>-->
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.1"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("3Ubi1XKncgtKis3Xfpljuf0n-gzGzoHsz", "lMFj6iIzkYUvE6fCHfrANApG");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
