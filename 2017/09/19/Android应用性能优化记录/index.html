@@ -101,12 +101,12 @@
 <meta property="og:site_name" content="JesseHev的个人专栏">
 <meta property="og:description" content="虚拟机在执行GC垃圾回收操作时所有线程（包括UI线程）都需要暂停，当GC垃圾回收完成之后所有线程才能够继续执行（这个细节下面小节会有详细介绍）。也就是说当在16ms内进行渲染等操作时如果刚好遇上大量GC操作则会导致渲染时间明显不足，也就从而导致了丢帧卡顿问题 android的性能优化主要从下面4个方面入手 UI性能问题优化UI卡顿常见原因 在UI线程中做轻微耗时操作，导致UI线程卡顿 布局太过复杂">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://jessehev.github.io/2017/09/19/images/nature_1.png">
-<meta property="og:updated_time" content="2017-09-20T08:53:58.687Z">
+<meta property="og:image" content="https://jessehev.github.io/images/nature_1.png">
+<meta property="og:updated_time" content="2017-09-21T01:54:42.816Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android应用性能优化记录">
 <meta name="twitter:description" content="虚拟机在执行GC垃圾回收操作时所有线程（包括UI线程）都需要暂停，当GC垃圾回收完成之后所有线程才能够继续执行（这个细节下面小节会有详细介绍）。也就是说当在16ms内进行渲染等操作时如果刚好遇上大量GC操作则会导致渲染时间明显不足，也就从而导致了丢帧卡顿问题 android的性能优化主要从下面4个方面入手 UI性能问题优化UI卡顿常见原因 在UI线程中做轻微耗时操作，导致UI线程卡顿 布局太过复杂">
-<meta name="twitter:image" content="https://jessehev.github.io/2017/09/19/images/nature_1.png">
+<meta name="twitter:image" content="https://jessehev.github.io/images/nature_1.png">
 
 
 
@@ -458,10 +458,10 @@
 </tbody>
 </table>
 <p>譬如：优化布局层次机构，减少没必要的背景。暂时不显示的View 设置为gone而不是invisible</p>
-<p><img src="../images/nature_1.png" alt=""></p>
+<p><img src="/images/nature_1.png" alt=""></p>
 <p>每个柱状图偏上都有一根代表16ms基准的绿色横线，每一条竖着的柱状线都包含三部分（蓝色代表测量绘制Display List的时间，红色代表OpenGL渲染Display List所需要的时间，黄色代表CPU等待GPU处理的时间），只要我们每一帧的总时间低于基准线就不会发生UI卡顿问题（个别超出基准线其实也不算啥问题的）。</p>
 <p>这个工具只能看出是否丢帧，却不能分析丢帧原因，所以需要配合traceview和systrace来进行原因追踪</p>
-<h4 id="Lint进行资源及冗余UI布局等优化"><a href="#Lint进行资源及冗余UI布局等优化" class="headerlink" title="Lint进行资源及冗余UI布局等优化"></a>Lint进行资源及冗余UI布局等优化</h4><h4 id="gc导致的性能分析（memory检测、gc日子输出、Allocation-Tracker工具进行配合定位分析问题）："><a href="#gc导致的性能分析（memory检测、gc日子输出、Allocation-Tracker工具进行配合定位分析问题）：" class="headerlink" title="gc导致的性能分析（memory检测、gc日子输出、Allocation Tracker工具进行配合定位分析问题）："></a>gc导致的性能分析（memory检测、gc日子输出、Allocation Tracker工具进行配合定位分析问题）：</h4><p>gc频繁执行的原因：</p>
+<h4 id="Lint进行资源及冗余UI布局等优化"><a href="#Lint进行资源及冗余UI布局等优化" class="headerlink" title="Lint进行资源及冗余UI布局等优化"></a>Lint进行资源及冗余UI布局等优化</h4><h4 id="gc导致的性能分析（memory检测、gc日志输出、Allocation-Tracker工具进行配合定位分析问题）："><a href="#gc导致的性能分析（memory检测、gc日志输出、Allocation-Tracker工具进行配合定位分析问题）：" class="headerlink" title="gc导致的性能分析（memory检测、gc日志输出、Allocation Tracker工具进行配合定位分析问题）："></a>gc导致的性能分析（memory检测、gc日志输出、Allocation Tracker工具进行配合定位分析问题）：</h4><p>gc频繁执行的原因：</p>
 <ol>
 <li>短时间内大量频繁的对象创建和释放操作（内存抖动现象）</li>
 <li>短时间内已经存在大量的内存占用介于阈值边缘，当创建对象导致超越阈值时候触发gc操作</li>
@@ -470,7 +470,7 @@
 <ol>
 <li>内存分配失败</li>
 <li>但分配的对象大小超过限定阈值（根据系统而定具体值）</li>
-<li>对gc的显式调用</li>
+<li>对gc的显式调用（System.gc()）</li>
 <li>外部内存分配失败</li>
 </ol>
 <h4 id="从内存角度优化其中就是要避免gc的频繁执行造成UI视觉的卡顿："><a href="#从内存角度优化其中就是要避免gc的频繁执行造成UI视觉的卡顿：" class="headerlink" title="从内存角度优化其中就是要避免gc的频繁执行造成UI视觉的卡顿："></a>从内存角度优化其中就是要避免gc的频繁执行造成UI视觉的卡顿：</h4><ol>
@@ -576,12 +576,8 @@
 <li>数据传输中使用高效的数据交互方式，比如json</li>
 <li>对定位要求不高的的场景使用网络定位，而不是GPS定位</li>
 <li>减少网络请求次数和请求时间间隔</li>
+<li>后台任务要尽可能少的唤醒CPU</li>
 </ol>
-<p>披着微商外套的传销<br>传销？微商？傻傻分不清楚，在互联网高速发展的今天，传统的商品销售搭上互联网的顺风车，使得销售数据实现了华丽的转身，而且相对淘宝店的低门槛，微商更是得到创业一代年轻人的青睐，这本就是喜大普奔的事情，那传销和微商八竿子打不着的两件事怎么产生有着剪不断理还乱的关系呢?在政府重拳出击，大力打击传销，捣毁传销窝点，拘捕传销头目，缴获传销非法资金；加大对人民群众的传销知识普及，各大媒体不断曝光传销事件，提高群众对传销的警惕性，人人反传销的大背景下，传销犹如过街老鼠，无处遁形，互联网时代的到来一方面加快的国家经济的发展，另一方面也给传销有可乘之机，于是传销披上互联网的外衣，招摇过市。那我们生活中又该如何去区分传销和微商呢？</p>
-<p>从商品流通方式</p>
-<p>微信朋友圈做生意的人本无可非议，而且是大众创业  事情，</p>
-<p>然而微商繁华的背后总有传销的鬼影，，</p>
-<p>传销利用披上伪善的外衣悄悄的进村打枪的不要，</p>
 
       
     </div>
@@ -789,7 +785,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#UI性能问题优化"><span class="nav-number">1.</span> <span class="nav-text">UI性能问题优化</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#UI卡顿常见原因"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">UI卡顿常见原因</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Layout层级分析"><span class="nav-number">1.1.</span> <span class="nav-text">Layout层级分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Lint进行资源及冗余UI布局等优化"><span class="nav-number">1.2.</span> <span class="nav-text">Lint进行资源及冗余UI布局等优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#gc导致的性能分析（memory检测、gc日子输出、Allocation-Tracker工具进行配合定位分析问题）："><span class="nav-number">1.3.</span> <span class="nav-text">gc导致的性能分析（memory检测、gc日子输出、Allocation Tracker工具进行配合定位分析问题）：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#从内存角度优化其中就是要避免gc的频繁执行造成UI视觉的卡顿："><span class="nav-number">1.4.</span> <span class="nav-text">从内存角度优化其中就是要避免gc的频繁执行造成UI视觉的卡顿：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Android-studio-Monitor面板的memory的tracview记录了应用程序每个函数执行的时间，以此来进行性能分析"><span class="nav-number">1.5.</span> <span class="nav-text">Android studio Monitor面板的memory的tracview记录了应用程序每个函数执行的时间，以此来进行性能分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ANR导致UI卡顿："><span class="nav-number">1.6.</span> <span class="nav-text">ANR导致UI卡顿：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Memory内存性能优化"><span class="nav-number">2.</span> <span class="nav-text">Memory内存性能优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#内存泄露性能分析"><span class="nav-number">2.1.</span> <span class="nav-text">内存泄露性能分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内存溢出OOM性能分析"><span class="nav-number">2.2.</span> <span class="nav-text">内存溢出OOM性能分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#API使用、代码编写性能分析"><span class="nav-number">3.</span> <span class="nav-text">API使用、代码编写性能分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#字符串的拼接-、StringBuffer（线程安全）、StringBuilder的选择"><span class="nav-number">3.1.</span> <span class="nav-text">字符串的拼接 +、StringBuffer（线程安全）、StringBuilder的选择</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HashMap、ArrayMap、SparseMap的使用选择"><span class="nav-number">4.</span> <span class="nav-text">HashMap、ArrayMap、SparseMap的使用选择</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用ContentProviderOperation避免多次调用ContentProvider"><span class="nav-number">4.1.</span> <span class="nav-text">使用ContentProviderOperation避免多次调用ContentProvider</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他代码编写性能优化的建议"><span class="nav-number">4.2.</span> <span class="nav-text">其他代码编写性能优化的建议</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android应用电池耗电性能分析"><span class="nav-number">5.</span> <span class="nav-text">Android应用电池耗电性能分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#常见耗电量大的原因："><span class="nav-number">5.1.</span> <span class="nav-text">常见耗电量大的原因：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#针对上面的原因提出相应的对策："><span class="nav-number">5.2.</span> <span class="nav-text">针对上面的原因提出相应的对策：</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#UI性能问题优化"><span class="nav-number">1.</span> <span class="nav-text">UI性能问题优化</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#UI卡顿常见原因"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">UI卡顿常见原因</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Layout层级分析"><span class="nav-number">1.1.</span> <span class="nav-text">Layout层级分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Lint进行资源及冗余UI布局等优化"><span class="nav-number">1.2.</span> <span class="nav-text">Lint进行资源及冗余UI布局等优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#gc导致的性能分析（memory检测、gc日志输出、Allocation-Tracker工具进行配合定位分析问题）："><span class="nav-number">1.3.</span> <span class="nav-text">gc导致的性能分析（memory检测、gc日志输出、Allocation Tracker工具进行配合定位分析问题）：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#从内存角度优化其中就是要避免gc的频繁执行造成UI视觉的卡顿："><span class="nav-number">1.4.</span> <span class="nav-text">从内存角度优化其中就是要避免gc的频繁执行造成UI视觉的卡顿：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Android-studio-Monitor面板的memory的tracview记录了应用程序每个函数执行的时间，以此来进行性能分析"><span class="nav-number">1.5.</span> <span class="nav-text">Android studio Monitor面板的memory的tracview记录了应用程序每个函数执行的时间，以此来进行性能分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ANR导致UI卡顿："><span class="nav-number">1.6.</span> <span class="nav-text">ANR导致UI卡顿：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Memory内存性能优化"><span class="nav-number">2.</span> <span class="nav-text">Memory内存性能优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#内存泄露性能分析"><span class="nav-number">2.1.</span> <span class="nav-text">内存泄露性能分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内存溢出OOM性能分析"><span class="nav-number">2.2.</span> <span class="nav-text">内存溢出OOM性能分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#API使用、代码编写性能分析"><span class="nav-number">3.</span> <span class="nav-text">API使用、代码编写性能分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#字符串的拼接-、StringBuffer（线程安全）、StringBuilder的选择"><span class="nav-number">3.1.</span> <span class="nav-text">字符串的拼接 +、StringBuffer（线程安全）、StringBuilder的选择</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HashMap、ArrayMap、SparseMap的使用选择"><span class="nav-number">4.</span> <span class="nav-text">HashMap、ArrayMap、SparseMap的使用选择</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用ContentProviderOperation避免多次调用ContentProvider"><span class="nav-number">4.1.</span> <span class="nav-text">使用ContentProviderOperation避免多次调用ContentProvider</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他代码编写性能优化的建议"><span class="nav-number">4.2.</span> <span class="nav-text">其他代码编写性能优化的建议</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android应用电池耗电性能分析"><span class="nav-number">5.</span> <span class="nav-text">Android应用电池耗电性能分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#常见耗电量大的原因："><span class="nav-number">5.1.</span> <span class="nav-text">常见耗电量大的原因：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#针对上面的原因提出相应的对策："><span class="nav-number">5.2.</span> <span class="nav-text">针对上面的原因提出相应的对策：</span></a></li></ol></li></ol></div>
             
 
           </div>
