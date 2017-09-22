@@ -96,15 +96,17 @@
 <meta name="description" content="Android动画主要分为三种：  View Animation：视图动画也叫tween（补间动画），只能被用来设置view的动画 Drawable Animation： frame动画或逐帧动画，专门用来显示一个个的Drawable，像放幻灯片一样 Property Animation：属性动画，只对Android3.0（api 11）以上生效，这种动画可以给任何Object，这种动画可扩展，可">
 <meta name="keywords" content="Android 动画">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android动画（一）之补间动画">
+<meta property="og:title" content="Android动画系列">
 <meta property="og:url" content="https://jessehev.github.io/2017/09/13/Android动画-一-之补间动画/index.html">
 <meta property="og:site_name" content="JesseHev的个人专栏">
 <meta property="og:description" content="Android动画主要分为三种：  View Animation：视图动画也叫tween（补间动画），只能被用来设置view的动画 Drawable Animation： frame动画或逐帧动画，专门用来显示一个个的Drawable，像放幻灯片一样 Property Animation：属性动画，只对Android3.0（api 11）以上生效，这种动画可以给任何Object，这种动画可扩展，可">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-15T09:43:16.658Z">
+<meta property="og:image" content="https://jessehev.github.io/images/animator.jpg">
+<meta property="og:updated_time" content="2017-09-22T07:44:53.132Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android动画（一）之补间动画">
+<meta name="twitter:title" content="Android动画系列">
 <meta name="twitter:description" content="Android动画主要分为三种：  View Animation：视图动画也叫tween（补间动画），只能被用来设置view的动画 Drawable Animation： frame动画或逐帧动画，专门用来显示一个个的Drawable，像放幻灯片一样 Property Animation：属性动画，只对Android3.0（api 11）以上生效，这种动画可以给任何Object，这种动画可扩展，可">
+<meta name="twitter:image" content="https://jessehev.github.io/images/animator.jpg">
 
 
 
@@ -138,7 +140,7 @@
 
 
 
-  <title>Android动画（一）之补间动画 | JesseHev的个人专栏</title>
+  <title>Android动画系列 | JesseHev的个人专栏</title>
   
 
 
@@ -332,7 +334,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Android动画（一）之补间动画</h1>
+          <h1 class="post-title" itemprop="name headline">Android动画系列</h1>
         
 
         <div class="post-meta">
@@ -384,7 +386,7 @@
 
           
           
-             <span id="/2017/09/13/Android动画-一-之补间动画/" class="leancloud_visitors" data-flag-title="Android动画（一）之补间动画">
+             <span id="/2017/09/13/Android动画-一-之补间动画/" class="leancloud_visitors" data-flag-title="Android动画系列">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -419,7 +421,7 @@
 <li>Property Animation：属性动画，只对Android3.0（api 11）以上生效，这种动画可以给任何Object，这种动画可扩展，可以自定义任何类型和属性</li>
 </ul>
 <p>本篇文章主要记录View Animation的使用方法。</p>
-<h3 id="一、-View-Animation概述"><a href="#一、-View-Animation概述" class="headerlink" title="一、 View Animation概述"></a>一、 View Animation概述</h3><p>视图动画也叫补间动画，该动画可以在一个视图容器内执行一系列的简单变换（位置、大小、平移、旋转），补间动画通过XML或Android代码定义，一般建议用XML文件来定义，因为它更具可读性、可重用性；</p>
+<h1 id="视图动画"><a href="#视图动画" class="headerlink" title="视图动画"></a>视图动画</h1><h3 id="一、-View-Animation概述"><a href="#一、-View-Animation概述" class="headerlink" title="一、 View Animation概述"></a>一、 View Animation概述</h3><p>视图动画也叫补间动画，该动画可以在一个视图容器内执行一系列的简单变换（位置、大小、平移、旋转），补间动画通过XML或Android代码定义，一般建议用XML文件来定义，因为它更具可读性、可重用性；</p>
 <table>
 <thead>
 <tr>
@@ -698,7 +700,88 @@
 </table>
 <h3 id="四、补间动画注意事项"><a href="#四、补间动画注意事项" class="headerlink" title="四、补间动画注意事项"></a>四、补间动画注意事项</h3><p>补间动画执行后并未改变view的真实布局属性值，譬如当我们在activity中有个button在屏幕上方，我们设置平移动画后移动到屏幕下方，然后报纸动画最后执行状态保留在屏幕下方，这时如果点击屏幕下方动画执行后的button是没有任何反应的，而点击原来屏幕上方没有button的地方却响应的是点击button的事件</p>
 <p>至此整个Android的不见动画常用属性和方法介绍完了。</p>
-
+<h1 id="Drawable动画"><a href="#Drawable动画" class="headerlink" title="Drawable动画"></a>Drawable动画</h1><p>Drawable动画其实就是Frame动画，他允许你实现像播放幻灯片一样的效果，这种动画其实就是一张张的drawable的叠加，这种动画继承自Drawable，所以AnimationDrawable本质上还是Drawable。所以xml定义的动画一般放在res/drawable/目录下</p>
+<h3 id="Drawable动画的xml实现方式"><a href="#Drawable动画的xml实现方式" class="headerlink" title="Drawable动画的xml实现方式"></a>Drawable动画的xml实现方式</h3><p>Drawable动画可以使用xml或者java方式实现，但是依然推荐使用xml方式</p>
+<p>先附上一段代码示例drawable_anim.xml<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">&lt;animation-list xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">    android:oneshot=&quot;false&quot;&gt;</div><div class="line">  &lt;item</div><div class="line">      android:drawable=&quot;@mipmap/animation_start_1&quot;</div><div class="line">      android:duration=&quot;200&quot;/&gt;</div><div class="line">  &lt;item</div><div class="line">      android:drawable=&quot;@mipmap/animation_start_2&quot;</div><div class="line">      android:duration=&quot;200&quot;/&gt;</div><div class="line">  &lt;item</div><div class="line">      android:drawable=&quot;@mipmap/animation_start_3&quot;</div><div class="line">      android:duration=&quot;200&quot;/&gt;</div><div class="line">  &lt;item</div><div class="line">      android:drawable=&quot;@mipmap/animation_start_4&quot;</div><div class="line">      android:duration=&quot;200&quot;/&gt;</div><div class="line">  &lt;item</div><div class="line">      android:drawable=&quot;@mipmap/animation_start_5&quot;</div><div class="line">      android:duration=&quot;200&quot;/&gt;</div><div class="line">  &lt;item</div><div class="line">      android:drawable=&quot;@mipmap/animation_start_6&quot;</div><div class="line">      android:duration=&quot;200&quot;/&gt;</div><div class="line">&lt;/animation-list&gt;</div></pre></td></tr></table></figure></p>
+<p>注意drawable_anim.xml 文件位于res/drawable/目录下<br>animation-list 必须是根节点，包含一个或者多个item元素，其属性有：</p>
+<ul>
+<li>android：oneshot=true表示只执行一次，false表示循环执行</li>
+<li>item 类似一帧的动画资源</li>
+</ul>
+<p>item是animation-list的子项，包含属性如下：</p>
+<ul>
+<li>android:drawable 一个frame的Drawable资源。</li>
+<li>android:duration 一个frame显示多长时间。</li>
+</ul>
+<p>然后在activity中的代码调用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">public void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">  super.onCreate(savedInstanceState);</div><div class="line">  setContentView(R.layout.main);</div><div class="line"></div><div class="line">  ImageView rocketImage = (ImageView) findViewById(R.id.drawable_anim);</div><div class="line">  rocketImage.setBackgroundResource(R.drawable.rocket_thrust);</div><div class="line">  rocketAnimation = (AnimationDrawable) rocketImage.getBackground();</div><div class="line">&#125;</div><div class="line"></div><div class="line">public boolean onTouchEvent(MotionEvent event) &#123;</div><div class="line">  if (event.getAction() == MotionEvent.ACTION_DOWN) &#123;</div><div class="line">    rocketAnimation.start();</div><div class="line">    return true;</div><div class="line">  &#125;</div><div class="line">  return super.onTouchEvent(event);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="Drawable动画的代码实现方式"><a href="#Drawable动画的代码实现方式" class="headerlink" title="Drawable动画的代码实现方式"></a>Drawable动画的代码实现方式</h3><p>所谓的代码实现方式，只是把在xml中添加drawable换成了代码方式添加。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">AnimationDrawable  animationDrawable1 = new AnimationDrawable();</div><div class="line">    animationDrawable1.addFrame(getResources().getDrawable(R.mipmap.animation_start_1), 200);</div><div class="line">    animationDrawable1.addFrame(getResources().getDrawable(R.mipmap.animation_start_2), 200);</div><div class="line">    animationDrawable1.addFrame(getResources().getDrawable(R.mipmap.animation_start_3), 200);</div><div class="line">    animationDrawable1.addFrame(getResources().getDrawable(R.mipmap.animation_start_4), 200);</div><div class="line">    animationDrawable1.addFrame(getResources().getDrawable(R.mipmap.animation_start_5), 200);</div><div class="line">    animationDrawable1.addFrame(getResources().getDrawable(R.mipmap.animation_start_6), 200);</div><div class="line">    animationDrawable1.setOneShot(false);</div><div class="line">    show.setBackground(animationDrawable1);</div><div class="line">    animationDrawable1.start();</div></pre></td></tr></table></figure></p>
+<p>addFrame(@NonNull Drawable frame, int duration)顾名思义 增加一帧动画到动画中，第一个参数是需要添加的drawable对象，第二个参数是该动画的停留时间。<br>以上就是Drawable的全部知识点了。</p>
+<p>最后有个注意事项：start（）方法不能在oncreate中调用，因为AnimationDeawable还没有完全依附在window上，所以最好的调运时机是onWindowFocusChanged()方法中</p>
+<p>该动画的内容比较少，相对简单。</p>
+<h1 id="属性动画"><a href="#属性动画" class="headerlink" title="属性动画"></a>属性动画</h1><h3 id="Android3-0以后引入了属性动画，所谓的属性动画其实就是修改控件的属性值而实现的动画，补间动画和drawable动画实现的效果有限，所以功能比它们要强大的多，也要复杂的多"><a href="#Android3-0以后引入了属性动画，所谓的属性动画其实就是修改控件的属性值而实现的动画，补间动画和drawable动画实现的效果有限，所以功能比它们要强大的多，也要复杂的多" class="headerlink" title="Android3.0以后引入了属性动画，所谓的属性动画其实就是修改控件的属性值而实现的动画，补间动画和drawable动画实现的效果有限，所以功能比它们要强大的多，也要复杂的多"></a>Android3.0以后引入了属性动画，所谓的属性动画其实就是修改控件的属性值而实现的动画，补间动画和drawable动画实现的效果有限，所以功能比它们要强大的多，也要复杂的多</h3><h4 id="我们先来看下属性动画的类关系："><a href="#我们先来看下属性动画的类关系：" class="headerlink" title="我们先来看下属性动画的类关系："></a>我们先来看下属性动画的类关系：</h4><p><img src="/images/animator.jpg" alt="类图"></p>
+<p>也就是所有的属性动画的基类就是Animator，所以可以看见我们平时使用的属性动画重点就在于ValueAnimator、TimeAnimator、ObjectAnimator、AnimatorSet。</p>
+<h4 id="属性动画XML实现方式"><a href="#属性动画XML实现方式" class="headerlink" title="属性动画XML实现方式"></a>属性动画XML实现方式</h4><p>同样属性动画有xml和纯代码两种实现方式，我们先来看xml的实现方式<br>在xml中可直接使用的属性动画节点有ValueAnimator、ObjectAnimator、AnimatorSet，而TimeAnimator不能在xml中作为节点使用，属性动画的xml文件需要放置在/res/animator/目录下，注意不是/res/anim/，/res/anim/是放置补间动画的目录。这需要区分开。</p>
+<p>ValueAnimator 在xml中对应的是animator标签<br>ObjectAnimator在xml中对应的objectAnimator标签<br>AnimatorSet在xml中对应的是set标签<br>实例代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;set xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">    android:ordering=&quot;sequentially&quot;&gt;</div><div class="line"></div><div class="line">  &lt;objectAnimator</div><div class="line">      android:duration=&quot;800&quot;</div><div class="line">      android:propertyName=&quot;alpha&quot;</div><div class="line">      android:repeatCount=&quot;10000000&quot;</div><div class="line">      android:valueFrom=&quot;0.0&quot;</div><div class="line">      android:valueTo=&quot;1.0&quot;</div><div class="line">      android:valueType=&quot;floatType&quot;</div><div class="line">      /&gt;</div><div class="line">  &lt;animator</div><div class="line">      android:duration=&quot;800&quot;</div><div class="line">      android:repeatCount=&quot;10000000&quot;</div><div class="line">      android:valueFrom=&quot;0.0&quot;</div><div class="line">      android:valueTo=&quot;1000.0&quot;</div><div class="line">      android:valueType=&quot;floatType&quot;/&gt;</div><div class="line">&lt;/set&gt;</div></pre></td></tr></table></figure></p>
+<p>下面对各个属性进行分别解释<br>set标签属性解释：</p>
+<table>
+<thead>
+<tr>
+<th>xml属性</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>android：ordering</td>
+<td style="text-align:center">控制动画启动顺序：sequentially动画按照先后顺序启动；together(默认):动画同时启动</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>xml属性</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>android:properName</td>
+<td style="text-align:center">String类型，必须要设置的节点属性，代表要执行动画的属性，譬如可以执行一个控件的“alpha”或者一些其他自定义的属性</td>
+</tr>
+<tr>
+<td>android：valueFrom</td>
+<td style="text-align:center">动画起始点，与valueTo相对，如果没有设置，则系统通过属性的get方法获取，如果是颜色的话由6位16进制的数字表示</td>
+</tr>
+<tr>
+<td>android：valueTo</td>
+<td style="text-align:center">float、int或者color类型，必须要设置，表明动画结束的值，如果是颜色的话由6位16进制的数字表示</td>
+</tr>
+<tr>
+<td>android：duration</td>
+<td style="text-align:center">动画执行的时长，int类型，以毫秒为单位，默认是300毫秒</td>
+</tr>
+<tr>
+<td>android：startOffset</td>
+<td style="text-align:center">动画延迟的时间，从调用start（）方法后开始计算，int类型，毫秒单位</td>
+</tr>
+<tr>
+<td>android:repeatCount</td>
+<td style="text-align:center">动画执行重复次数，int类型，“-1”表示无限循环，“1”表示执行一次也就是总共执行两次，默认为0不重复</td>
+</tr>
+<tr>
+<td>android:repeatMode</td>
+<td style="text-align:center">重复模式，当动画执行完的时候应该如何处理，该指必须是证书或者-1，“reverse”会使动画向相反方向执行，可实现类似钟摆的效果，“repeat”会使动画每次都从头开始循环</td>
+</tr>
+<tr>
+<td>android:valueType</td>
+<td style="text-align:center">有intType、floatType两种，分别说明动画值是int和float类型，如果是颜色，就不需要指定了，系统会自动处理颜色值</td>
+</tr>
+</tbody>
+</table>
+<p>objectAnimator的属性同上</p>
+<h4 id="在activity中调用"><a href="#在activity中调用" class="headerlink" title="在activity中调用"></a>在activity中调用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">AnimatorSet set = AnimatorSet set = (AnimatorSet) AnimatorInflater.loadAnimator(myContext,</div><div class="line">    R.animtor.property_animator);</div><div class="line">set.setTarget(myObject);</div><div class="line">set.start();</div></pre></td></tr></table></figure>
+<h3 id="纯代码方式去实现属性动画"><a href="#纯代码方式去实现属性动画" class="headerlink" title="纯代码方式去实现属性动画"></a>纯代码方式去实现属性动画</h3>
       
     </div>
 
@@ -850,7 +933,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -872,7 +955,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -907,7 +990,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、-View-Animation概述"><span class="nav-number">1.</span> <span class="nav-text">一、 View Animation概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、属性和方法说明"><span class="nav-number">2.</span> <span class="nav-text">二、属性和方法说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、-可以看出Animation抽象类是所有补间动画类的基类，接下来我们看看基类提供的一些通用的属性吧。"><span class="nav-number">2.1.</span> <span class="nav-text">1、 可以看出Animation抽象类是所有补间动画类的基类，接下来我们看看基类提供的一些通用的属性吧。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、-接下来分别看看每种补间动画特有的属性和方法说明"><span class="nav-number">2.2.</span> <span class="nav-text">2、 接下来分别看看每种补间动画特有的属性和方法说明</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#a、-Alpha属性详解"><span class="nav-number">2.2.1.</span> <span class="nav-text">a、 Alpha属性详解</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#b、Rotate属性详解"><span class="nav-number">2.3.</span> <span class="nav-text">b、Rotate属性详解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#c、Scale属性详解"><span class="nav-number">2.4.</span> <span class="nav-text">c、Scale属性详解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#d、-translate属性详解"><span class="nav-number">2.5.</span> <span class="nav-text">d、 translate属性详解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#e、-AnimationSet几层自Animation是上面四种动画元素的容器管理类，没有自己特有的属性，他的属性集成自Animation，所以当我们对set标签使用Animation的属性时会对该标签下的所有元素都产生影响"><span class="nav-number">2.6.</span> <span class="nav-text">e、 AnimationSet几层自Animation是上面四种动画元素的容器管理类，没有自己特有的属性，他的属性集成自Animation，所以当我们对set标签使用Animation的属性时会对该标签下的所有元素都产生影响</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、补间动画使用方法及示例代码"><span class="nav-number">3.</span> <span class="nav-text">三、补间动画使用方法及示例代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、补间动画注意事项"><span class="nav-number">4.</span> <span class="nav-text">四、补间动画注意事项</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#视图动画"><span class="nav-number">1.</span> <span class="nav-text">视图动画</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、-View-Animation概述"><span class="nav-number">1.0.1.</span> <span class="nav-text">一、 View Animation概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、属性和方法说明"><span class="nav-number">1.0.2.</span> <span class="nav-text">二、属性和方法说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、-可以看出Animation抽象类是所有补间动画类的基类，接下来我们看看基类提供的一些通用的属性吧。"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">1、 可以看出Animation抽象类是所有补间动画类的基类，接下来我们看看基类提供的一些通用的属性吧。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、-接下来分别看看每种补间动画特有的属性和方法说明"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">2、 接下来分别看看每种补间动画特有的属性和方法说明</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#a、-Alpha属性详解"><span class="nav-number">1.0.2.2.1.</span> <span class="nav-text">a、 Alpha属性详解</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#b、Rotate属性详解"><span class="nav-number">1.0.2.3.</span> <span class="nav-text">b、Rotate属性详解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#c、Scale属性详解"><span class="nav-number">1.0.2.4.</span> <span class="nav-text">c、Scale属性详解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#d、-translate属性详解"><span class="nav-number">1.0.2.5.</span> <span class="nav-text">d、 translate属性详解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#e、-AnimationSet几层自Animation是上面四种动画元素的容器管理类，没有自己特有的属性，他的属性集成自Animation，所以当我们对set标签使用Animation的属性时会对该标签下的所有元素都产生影响"><span class="nav-number">1.0.2.6.</span> <span class="nav-text">e、 AnimationSet几层自Animation是上面四种动画元素的容器管理类，没有自己特有的属性，他的属性集成自Animation，所以当我们对set标签使用Animation的属性时会对该标签下的所有元素都产生影响</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、补间动画使用方法及示例代码"><span class="nav-number">1.0.3.</span> <span class="nav-text">三、补间动画使用方法及示例代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、补间动画注意事项"><span class="nav-number">1.0.4.</span> <span class="nav-text">四、补间动画注意事项</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Drawable动画"><span class="nav-number">2.</span> <span class="nav-text">Drawable动画</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Drawable动画的xml实现方式"><span class="nav-number">2.0.1.</span> <span class="nav-text">Drawable动画的xml实现方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Drawable动画的代码实现方式"><span class="nav-number">2.0.2.</span> <span class="nav-text">Drawable动画的代码实现方式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#属性动画"><span class="nav-number">3.</span> <span class="nav-text">属性动画</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Android3-0以后引入了属性动画，所谓的属性动画其实就是修改控件的属性值而实现的动画，补间动画和drawable动画实现的效果有限，所以功能比它们要强大的多，也要复杂的多"><span class="nav-number">3.0.1.</span> <span class="nav-text">Android3.0以后引入了属性动画，所谓的属性动画其实就是修改控件的属性值而实现的动画，补间动画和drawable动画实现的效果有限，所以功能比它们要强大的多，也要复杂的多</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#我们先来看下属性动画的类关系："><span class="nav-number">3.0.1.1.</span> <span class="nav-text">我们先来看下属性动画的类关系：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#属性动画XML实现方式"><span class="nav-number">3.0.1.2.</span> <span class="nav-text">属性动画XML实现方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在activity中调用"><span class="nav-number">3.0.1.3.</span> <span class="nav-text">在activity中调用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#纯代码方式去实现属性动画"><span class="nav-number">3.0.2.</span> <span class="nav-text">纯代码方式去实现属性动画</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

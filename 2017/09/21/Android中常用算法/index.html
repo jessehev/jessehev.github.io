@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Android,自定义view," />
+  <meta name="keywords" content="Android,Java,算法," />
 
 
 
@@ -93,18 +93,18 @@
 
 
 
-<meta name="description" content="燕雀安知鸿鹄之志！">
-<meta name="keywords" content="Android,自定义view">
+<meta name="description" content="Android开发过程中很少有直接使用一些比较专业的算法的，但是需要了解并属性其中原理提高开发效率和优化编程中的代码执行，下面记录了一些常用的算法。 按照算法的原理分为一下几大类： 按排序划分： 插入排序 直接插入法排序 希尔排序   选择排序 简单选择排序 堆排序   交换排序 冒泡排序 快速排序   贵宾排序 基数排序按查找分： 顺序查找 二分查找 分块查找 哈希查找  下面采用原理说明和代码">
+<meta name="keywords" content="Android,Java,算法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="自定义View（一）——View中的坐标详解">
-<meta property="og:url" content="https://jessehev.github.io/2017/08/08/自定义view（一）一view中的坐标详解/index.html">
+<meta property="og:title" content="Android中常用算法">
+<meta property="og:url" content="https://jessehev.github.io/2017/09/21/Android中常用算法/index.html">
 <meta property="og:site_name" content="JesseHev的个人专栏">
-<meta property="og:description" content="燕雀安知鸿鹄之志！">
+<meta property="og:description" content="Android开发过程中很少有直接使用一些比较专业的算法的，但是需要了解并属性其中原理提高开发效率和优化编程中的代码执行，下面记录了一些常用的算法。 按照算法的原理分为一下几大类： 按排序划分： 插入排序 直接插入法排序 希尔排序   选择排序 简单选择排序 堆排序   交换排序 冒泡排序 快速排序   贵宾排序 基数排序按查找分： 顺序查找 二分查找 分块查找 哈希查找  下面采用原理说明和代码">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-08-09T08:38:22.272Z">
+<meta property="og:updated_time" content="2017-09-21T09:58:46.712Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="自定义View（一）——View中的坐标详解">
-<meta name="twitter:description" content="燕雀安知鸿鹄之志！">
+<meta name="twitter:title" content="Android中常用算法">
+<meta name="twitter:description" content="Android开发过程中很少有直接使用一些比较专业的算法的，但是需要了解并属性其中原理提高开发效率和优化编程中的代码执行，下面记录了一些常用的算法。 按照算法的原理分为一下几大类： 按排序划分： 插入排序 直接插入法排序 希尔排序   选择排序 简单选择排序 堆排序   交换排序 冒泡排序 快速排序   贵宾排序 基数排序按查找分： 顺序查找 二分查找 分块查找 哈希查找  下面采用原理说明和代码">
 
 
 
@@ -132,13 +132,13 @@
 
 
 
-  <link rel="canonical" href="https://jessehev.github.io/2017/08/08/自定义view（一）一view中的坐标详解/"/>
+  <link rel="canonical" href="https://jessehev.github.io/2017/09/21/Android中常用算法/"/>
 
 
 
 
 
-  <title>自定义View（一）——View中的坐标详解 | JesseHev的个人专栏</title>
+  <title>Android中常用算法 | JesseHev的个人专栏</title>
   
 
 
@@ -315,7 +315,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://jessehev.github.io/2017/08/08/自定义view（一）一view中的坐标详解/">
+    <link itemprop="mainEntityOfPage" href="https://jessehev.github.io/2017/09/21/Android中常用算法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="JesseHev">
@@ -332,7 +332,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">自定义View（一）——View中的坐标详解</h1>
+          <h1 class="post-title" itemprop="name headline">Android中常用算法</h1>
         
 
         <div class="post-meta">
@@ -344,8 +344,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-08T10:58:16+08:00">
-                2017-08-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-21T11:07:05+08:00">
+                2017-09-21
               </time>
             
 
@@ -367,8 +367,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -384,7 +384,7 @@
 
           
           
-             <span id="/2017/08/08/自定义view（一）一view中的坐标详解/" class="leancloud_visitors" data-flag-title="自定义View（一）——View中的坐标详解">
+             <span id="/2017/09/21/Android中常用算法/" class="leancloud_visitors" data-flag-title="Android中常用算法">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -412,7 +412,55 @@
       
 
       
-        
+        <p>Android开发过程中很少有直接使用一些比较专业的算法的，但是需要了解并属性其中原理提高开发效率和优化编程中的代码执行，下面记录了一些常用的算法。</p>
+<p>按照算法的原理分为一下几大类：</p>
+<h4 id="按排序划分："><a href="#按排序划分：" class="headerlink" title="按排序划分："></a>按排序划分：</h4><ul>
+<li>插入排序<ol>
+<li>直接插入法排序</li>
+<li>希尔排序</li>
+</ol>
+</li>
+<li>选择排序<ol>
+<li>简单选择排序</li>
+<li>堆排序</li>
+</ol>
+</li>
+<li>交换排序<ol>
+<li>冒泡排序</li>
+<li>快速排序</li>
+</ol>
+</li>
+<li>贵宾排序</li>
+<li>基数排序<h4 id="按查找分："><a href="#按查找分：" class="headerlink" title="按查找分："></a>按查找分：</h4></li>
+<li>顺序查找</li>
+<li>二分查找</li>
+<li>分块查找</li>
+<li>哈希查找</li>
+</ul>
+<p>下面采用原理说明和代码示例的方法来记录以上算法的用法</p>
+<h4 id="直接插入排序"><a href="#直接插入排序" class="headerlink" title="直接插入排序"></a>直接插入排序</h4><blockquote>
+<p>原理：在要排序的一组数中，假设前面(n-1) [n&gt;=2] 个数已经是排好顺序的，现在要把第n个数插到前面的有序数中，使得这n个数<br>也是排好顺序的。如此反复循环，直到全部排好顺序。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">public void insertSort(int[] a) &#123;</div><div class="line">    StringBuilder sb = new StringBuilder();</div><div class="line">    sb.append(&quot;排序前的数列==》&quot;);</div><div class="line">    for (int l : a) &#123;</div><div class="line">      sb.append(l + &quot; , &quot;);</div><div class="line">    &#125;</div><div class="line">    L.d(sb.toString());</div><div class="line"></div><div class="line">    int length = a.length;</div><div class="line">	//要插入的数</div><div class="line">    int insertNum;</div><div class="line">    for (int i = 0; i &lt; length; i++) &#123;</div><div class="line">      insertNum = a[i];</div><div class="line">      int j = i - 1;</div><div class="line"></div><div class="line">      while (j &gt;= 0 &amp;&amp; a[j] &gt; insertNum) &#123;</div><div class="line">        a[j + 1] = a[j];</div><div class="line">        j--;</div><div class="line">      &#125;</div><div class="line">      a[j + 1] = insertNum;</div><div class="line">    &#125;</div><div class="line">    sb.append(&quot;\n排序后的数列==》&quot;);</div><div class="line">    for (int l : a) &#123;</div><div class="line">      sb.append(l + &quot; , &quot;);</div><div class="line">    &#125;</div><div class="line">    L.d(sb.toString());</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  static class L &#123;</div><div class="line">    public static void d(String s) &#123;</div><div class="line">      Log.d(TAG, s);</div><div class="line">    &#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<h4 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h4><blockquote>
+<p> 希尔排序的诞生是由于插入排序在处理大规模数组的时候会遇到需要移动太多元素的问题。希尔排序的思想是将一个大的数组“分而治之”，划分为若干个小的数组，以 gap 来划分，比如数组 [1, 2, 3, 4, 5, 6, 7, 8] ，如果以 gap = 2 来划分，可以分为 [1, 3, 5, 7] 和 [2, 4, 6, 8] 两个数组（对应的，如 gap = 3 ，则划分的数组为： [1, 4, 7] 、 [2, 5, 8] 、 [3, 6] ）然后分别对划分出来的数组进行插入排序，待各个子数组排序完毕之后再减小 gap 值重复进行之前的步骤，直至 gap = 1 ，即对整个数组进行插入排序，此时的数组已经基本上快排好序了，所以需要移动的元素会很小很小，解决了插入排序在处理大规模数组时较多移动次数的问题</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">public void shellSort(int a[]) &#123;</div><div class="line">    L.d(&quot;排序前数据：&quot; + Arrays.toString(a));</div><div class="line">    int length = a.length;</div><div class="line">    int temp = 0;</div><div class="line">    while (true) &#123;</div><div class="line">      //增量</div><div class="line">      length = length / 2;</div><div class="line">      //分成的组数</div><div class="line">      for (int x = 0; x &lt; length; x++) &#123;</div><div class="line">        //每组内进行直接插入排序</div><div class="line">        for (int i = x + length; i &lt; a.length; i += length) &#123;</div><div class="line">          int j = i - length;</div><div class="line">          temp = a[i];</div><div class="line">          for (; j &gt;= 0 &amp;&amp; temp &lt; a[j]; j -= length) &#123;</div><div class="line">            a[j + length] = a[j];</div><div class="line">          &#125;</div><div class="line">          a[j + length] = temp;</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">      if (length == 1) &#123;</div><div class="line">        break;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    L.d(&quot;排序后数据：&quot; + Arrays.toString(a));</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<h4 id="简单排序"><a href="#简单排序" class="headerlink" title="简单排序"></a>简单排序</h4><blockquote>
+<p>在要排序的一组数中，选出最小的一个数与第一个位置的数交换；然后在剩下的数当中再找最小的与第二个位置的数交换，如此循环到倒数第二个数和最后一个数比较为止</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">	 * 简单选择排序</div><div class="line">	 * </div><div class="line">	 * @param a</div><div class="line">	 */</div><div class="line">	public void simpleSort(int[] a) &#123;</div><div class="line">		FormatPrint.print(&quot;排序前数据：&quot;, a);</div><div class="line">		int d = a.length;</div><div class="line">		int position = 0;</div><div class="line">		for (int i = 0; i &lt; d; i++) &#123;</div><div class="line">			// 待比较的数的下标</div><div class="line">			position = i;</div><div class="line">			// 待比较的数</div><div class="line">			int temp = a[i];</div><div class="line">			// 遍历待比较后面的数，取出最小的数与待比较的数进行交换</div><div class="line">			for (int j = i + 1; j &lt; d; j++) &#123;</div><div class="line">				// 有较小的数，则保存下标，进行交换</div><div class="line">				if (a[j] &lt; temp) &#123;</div><div class="line">					position = j;</div><div class="line">					temp = a[j];</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">			// 与待比较的数进行交换位置</div><div class="line">			a[position] = a[i];</div><div class="line">			a[i] = temp;</div><div class="line">		&#125;</div><div class="line">		FormatPrint.print(&quot;排序后数据：&quot;, a);</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+<h4 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h4><blockquote>
+<p>冒泡排序（Bubble Sort）是一种简单的排序算法。它重复地走访过要排序的数列，一次比较两个元素，如果他们的顺序错误就把他们交换过来。走访数列的工作是重复地进行直到没有再需要交换，也就是说该数列已经排序完成。这个算法的名字由来是因为越小的元素会经由交换慢慢“浮”到数列的顶端。</p>
+</blockquote>
+<p>冒泡排序算法的运作如下:</p>
+<ul>
+<li>比较相邻的元素。如果第一个比第二个大，就交换他们两个。</li>
+<li>对每一对相邻元素作同样的工作，从开始第一对到结尾的最后一对。在这一点，最后的元素应该会是最大的数。</li>
+<li>针对所有的元素重复以上的步骤，除了最后一个。</li>
+<li>持续每次对越来越少的元素重复上面的步骤，直到没有任何一对数字需要比较。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">	 * 冒泡排序</div><div class="line">	 * </div><div class="line">	 * @param a</div><div class="line">	 */</div><div class="line">	public void bubbleSort(int a[]) &#123;</div><div class="line">		FormatPrint.print(&quot;排序前数据：&quot;, a);</div><div class="line">		int temp = 0;</div><div class="line">		int size = a.length;</div><div class="line">		for (int i = 0; i &lt; size-1; i++) &#123;</div><div class="line">			for (int j = 0; j &lt; size - i - 1; j++) &#123;</div><div class="line">				if (a[j] &gt; a[j + 1]) &#123;</div><div class="line">					temp = a[j];</div><div class="line">					a[j] = a[j + 1];</div><div class="line">					a[j + 1] = temp;</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		FormatPrint.print(&quot;排序后数据：&quot;, a);</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
       
     </div>
 
@@ -443,7 +491,9 @@
           
             <a href="/tags/Android/" rel="tag"># Android</a>
           
-            <a href="/tags/自定义view/" rel="tag"># 自定义view</a>
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/算法/" rel="tag"># 算法</a>
           
         </div>
       
@@ -456,8 +506,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/08/07/Android使用python多渠道快速打包/" rel="next" title="Android使用python多渠道高速打包">
-                <i class="fa fa-chevron-left"></i> Android使用python多渠道高速打包
+              <a href="/2017/09/19/Android应用性能优化记录/" rel="next" title="Android应用性能优化记录">
+                <i class="fa fa-chevron-left"></i> Android应用性能优化记录
               </a>
             
           </div>
@@ -465,10 +515,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/08/08/身份证验证/" rel="prev" title="身份证验证">
-                身份证验证 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -541,8 +587,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.png"
@@ -604,6 +659,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#按排序划分："><span class="nav-number">1.</span> <span class="nav-text">按排序划分：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#按查找分："><span class="nav-number">2.</span> <span class="nav-text">按查找分：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#直接插入排序"><span class="nav-number">3.</span> <span class="nav-text">直接插入排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#希尔排序"><span class="nav-number">4.</span> <span class="nav-text">希尔排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#简单排序"><span class="nav-number">5.</span> <span class="nav-text">简单排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#冒泡排序"><span class="nav-number">6.</span> <span class="nav-text">冒泡排序</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
