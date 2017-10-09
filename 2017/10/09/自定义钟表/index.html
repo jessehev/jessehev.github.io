@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Android,自定义view," />
+  <meta name="keywords" content="Android," />
 
 
 
@@ -93,18 +93,18 @@
 
 
 
-<meta name="description" content="燕雀安知鸿鹄之志！">
-<meta name="keywords" content="Android,自定义view">
+<meta name="description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210">
+<meta name="keywords" content="Android">
 <meta property="og:type" content="article">
-<meta property="og:title" content="自定义View（一）——View中的坐标详解">
-<meta property="og:url" content="https://jessehev.github.io/2017/08/08/自定义view（一）一view中的坐标详解/index.html">
+<meta property="og:title" content="自定义钟表">
+<meta property="og:url" content="https://jessehev.github.io/2017/10/09/自定义钟表/index.html">
 <meta property="og:site_name" content="JesseHev的个人专栏">
-<meta property="og:description" content="燕雀安知鸿鹄之志！">
+<meta property="og:description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-08-09T08:38:22.272Z">
+<meta property="og:updated_time" content="2017-10-09T07:47:10.780Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="自定义View（一）——View中的坐标详解">
-<meta name="twitter:description" content="燕雀安知鸿鹄之志！">
+<meta name="twitter:title" content="自定义钟表">
+<meta name="twitter:description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210">
 
 
 
@@ -132,13 +132,13 @@
 
 
 
-  <link rel="canonical" href="https://jessehev.github.io/2017/08/08/自定义view（一）一view中的坐标详解/"/>
+  <link rel="canonical" href="https://jessehev.github.io/2017/10/09/自定义钟表/"/>
 
 
 
 
 
-  <title>自定义View（一）——View中的坐标详解 | JesseHev的个人专栏</title>
+  <title>自定义钟表 | JesseHev的个人专栏</title>
   
 
 
@@ -315,7 +315,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://jessehev.github.io/2017/08/08/自定义view（一）一view中的坐标详解/">
+    <link itemprop="mainEntityOfPage" href="https://jessehev.github.io/2017/10/09/自定义钟表/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="JesseHev">
@@ -332,7 +332,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">自定义View（一）——View中的坐标详解</h1>
+          <h1 class="post-title" itemprop="name headline">自定义钟表</h1>
         
 
         <div class="post-meta">
@@ -344,8 +344,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-08T10:58:16+08:00">
-                2017-08-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-09T15:37:00+08:00">
+                2017-10-09
               </time>
             
 
@@ -355,28 +355,6 @@
           </span>
 
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
 
           
             
@@ -384,7 +362,7 @@
 
           
           
-             <span id="/2017/08/08/自定义view（一）一view中的坐标详解/" class="leancloud_visitors" data-flag-title="自定义View（一）——View中的坐标详解">
+             <span id="/2017/10/09/自定义钟表/" class="leancloud_visitors" data-flag-title="自定义钟表">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -412,7 +390,9 @@
       
 
       
-        
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div></pre></td><td class="code"><pre><div class="line">package com.utstartcom.custom.view.view;</div><div class="line"></div><div class="line">import android.content.Context;</div><div class="line">import android.graphics.Canvas;</div><div class="line">import android.graphics.Color;</div><div class="line">import android.graphics.Paint;</div><div class="line">import android.os.Handler;</div><div class="line">import android.os.Message;</div><div class="line">import android.support.annotation.Nullable;</div><div class="line">import android.util.AttributeSet;</div><div class="line">import android.view.View;</div><div class="line">import java.util.Calendar;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Created by JesseHev on 2017/9/28.</div><div class="line"> */</div><div class="line"></div><div class="line">public class ClockView extends View &#123;</div><div class="line"></div><div class="line">  Paint mPaint;</div><div class="line">  Paint mTextPaint;</div><div class="line"></div><div class="line">  int mWidth, mHeight, mRadius = 200;</div><div class="line">  int centerX;</div><div class="line">  int centerY;</div><div class="line">  //刻度到圆圈之间的距离</div><div class="line">  int scalePadding = 10;</div><div class="line"></div><div class="line">  public ClockView(Context context) &#123;</div><div class="line">    super(context);</div><div class="line">    init();</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  public ClockView(Context context, @Nullable AttributeSet attrs) &#123;</div><div class="line">    super(context, attrs);</div><div class="line">    init();</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  public ClockView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) &#123;</div><div class="line">    super(context, attrs, defStyleAttr);</div><div class="line">    init();</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  private void init() &#123;</div><div class="line">    mPaint = new Paint();</div><div class="line">    mPaint.setColor(Color.RED);</div><div class="line">    mPaint.setStrokeWidth(5);</div><div class="line">    mPaint.setStyle(Paint.Style.STROKE);</div><div class="line"></div><div class="line">    mTextPaint = new Paint();</div><div class="line">    mTextPaint.setAntiAlias(true);</div><div class="line">    mTextPaint.setStyle(Paint.Style.STROKE);</div><div class="line">    mTextPaint.setTextSize(30);</div><div class="line">    mTextPaint.setColor(Color.BLACK);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  @Override protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) &#123;</div><div class="line">    super.onMeasure(widthMeasureSpec, heightMeasureSpec);</div><div class="line">    mWidth = getMeasuredWidth() - getPaddingRight() - getPaddingLeft();</div><div class="line">    mHeight = getMeasuredHeight() - getPaddingTop() - getPaddingBottom();</div><div class="line">    centerX = mWidth / 2;</div><div class="line">    centerY = mHeight / 2;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  @Override protected void onDraw(Canvas canvas) &#123;</div><div class="line">    super.onDraw(canvas);</div><div class="line"></div><div class="line">    drawCicle(canvas);</div><div class="line">    drawCale(canvas);</div><div class="line">    drawPointer(canvas);</div><div class="line">    postInvalidateDelayed(1000);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  private void drawPointer(Canvas canvas) &#123;</div><div class="line">    //获取当前时间，然后根据当前时间计算指针旋转角度绘制指针</div><div class="line">    Calendar calendar = Calendar.getInstance();</div><div class="line">    int hour = calendar.get(Calendar.HOUR);</div><div class="line">    int minute = calendar.get(Calendar.MINUTE);</div><div class="line">    int second = calendar.get(Calendar.SECOND);</div><div class="line"></div><div class="line">    mPaint.setColor(Color.BLACK);</div><div class="line">    mPaint.setStyle(Paint.Style.FILL_AND_STROKE);</div><div class="line">    mPaint.setStrokeCap(Paint.Cap.ROUND);</div><div class="line">    mPaint.setStrokeWidth(12);</div><div class="line"></div><div class="line">    canvas.save();</div><div class="line">    //计算时针旋转角度 =360/12*小时数（当前小时数+分钟数+秒数 这才是真正的小时数，分数同理）</div><div class="line">    float hourDegrees = 30 * (hour + minute / 60f + second / 60f / 60f);</div><div class="line">    canvas.rotate(hourDegrees, centerX, centerY);</div><div class="line">    canvas.drawLine(centerX, centerY - centerX * 0.5f, centerX, centerY + centerX * 0.15f, mPaint);</div><div class="line">    canvas.restore();</div><div class="line"></div><div class="line">    mPaint.setStrokeWidth(8);</div><div class="line">    canvas.save();</div><div class="line"></div><div class="line">    float minuteDegrees = 6 * (minute + second / 60f);</div><div class="line">    canvas.rotate(minuteDegrees, centerX, centerY);</div><div class="line">    canvas.drawLine(centerX, centerY - centerX * 0.5f, centerX, centerY + centerX * 0.15f, mPaint);</div><div class="line">    canvas.restore();</div><div class="line"></div><div class="line">    mPaint.setColor(Color.RED);</div><div class="line">    mPaint.setStrokeWidth(7);</div><div class="line">    canvas.save();</div><div class="line">    float secondDegrees = 6 * second;</div><div class="line">    canvas.rotate(secondDegrees, centerX, centerY);</div><div class="line">    canvas.drawLine(centerX, centerY - mRadius + scalePadding, mWidth / 2,</div><div class="line">        mHeight / 2 + mWidth / 2f * 0.15f, mPaint);</div><div class="line">    canvas.restore();</div><div class="line"></div><div class="line">    canvas.drawCircle(centerX, centerY, 10, mPaint);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  private void drawCale(Canvas canvas) &#123;</div><div class="line"></div><div class="line">    for (int i = 0; i &lt; 60; i++) &#123;</div><div class="line"></div><div class="line">      if (i == 0 || i == 15 || i == 30 || i == 45) &#123;//大刻度</div><div class="line"></div><div class="line">        mPaint.setStrokeWidth(6);</div><div class="line">        mPaint.setColor(Color.BLACK);</div><div class="line">        canvas.drawLine(centerX, centerY - mRadius + scalePadding, centerX,</div><div class="line">            centerY - mRadius + scalePadding + 30, mPaint);</div><div class="line">        String text = String.valueOf(i == 0 ? 12 : i / 5);</div><div class="line">        //设置字体中心到屏幕左边的距离</div><div class="line">        mTextPaint.setTextAlign(Paint.Align.CENTER);</div><div class="line">        canvas.drawText(text, centerX, centerY - mRadius + scalePadding + 60, mTextPaint);</div><div class="line">      &#125; else if (i == 5 | i == 10</div><div class="line">          || i == 20</div><div class="line">          || i == 25</div><div class="line">          || i == 35</div><div class="line">          || i == 40</div><div class="line">          || i == 50</div><div class="line">          || i == 55) &#123; //中刻度</div><div class="line">        mPaint.setStrokeWidth(4);</div><div class="line">        mPaint.setColor(Color.RED);</div><div class="line">        String text = String.valueOf(i / 5);</div><div class="line">        canvas.drawText(text, centerX, centerY - mRadius + scalePadding + 60, mTextPaint);</div><div class="line">        canvas.drawLine(centerX, centerY - mRadius + scalePadding, centerX,</div><div class="line">            centerY - mRadius + scalePadding + 20, mPaint);</div><div class="line">      &#125; else &#123;//小刻度</div><div class="line">        mPaint.setStrokeWidth(2);</div><div class="line">        mPaint.setColor(Color.RED);</div><div class="line">        String text = String.valueOf(i);</div><div class="line">        canvas.drawLine(centerX, centerY - mRadius + scalePadding, centerX,</div><div class="line">            centerY - mRadius + scalePadding + 10, mPaint);</div><div class="line">      &#125;</div><div class="line">      //每次绘制一个刻度都将canvas选择6°，注：每个刻度为 = 360/60</div><div class="line">      canvas.rotate(6, mWidth / 2, mHeight / 2);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  private void drawCicle(Canvas canvas) &#123;</div><div class="line">    mPaint.setStyle(Paint.Style.STROKE);</div><div class="line">    canvas.drawCircle(centerX, centerY, mRadius, mPaint);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在xml中引用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">    android:layout_width=&quot;match_parent&quot;</div><div class="line">    android:layout_height=&quot;match_parent&quot;</div><div class="line">    android:orientation=&quot;vertical&quot;</div><div class="line">    &gt;</div><div class="line">  &lt;com.utstartcom.custom.view.view.ClockView</div><div class="line">      android:padding=&quot;5dp&quot;</div><div class="line">      android:layout_width=&quot;300dp&quot;</div><div class="line">      android:layout_height=&quot;300dp&quot;</div><div class="line">      /&gt;</div><div class="line">&lt;/LinearLayout&gt;</div></pre></td></tr></table></figure></p>
+
       
     </div>
 
@@ -443,8 +423,6 @@
           
             <a href="/tags/Android/" rel="tag"># Android</a>
           
-            <a href="/tags/自定义view/" rel="tag"># 自定义view</a>
-          
         </div>
       
 
@@ -456,8 +434,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/08/07/Android使用python多渠道快速打包/" rel="next" title="Android使用python多渠道高速打包">
-                <i class="fa fa-chevron-left"></i> Android使用python多渠道高速打包
+              <a href="/2017/09/21/Android中常用算法/" rel="next" title="Android中常用算法">
+                <i class="fa fa-chevron-left"></i> Android中常用算法
               </a>
             
           </div>
@@ -465,10 +443,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/08/08/身份证验证/" rel="prev" title="身份证验证">
-                身份证验证 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -577,7 +551,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
